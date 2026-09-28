@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login - RentalCars</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen
+             bg-gradient-to-br
+             from-blue-600
+             to-blue-900
+             flex items-center
+             justify-center
+             px-6">
+
+    <!-- Login Card -->
+
+    <div class="w-full max-w-md
+                bg-white
+                rounded-2xl
+                shadow-2xl
+                p-8">
+
+        <!-- Logo -->
+
+        <div class="text-center mb-8">
+
+            <div class="text-5xl mb-3">
+                🚗
+            </div>
+
+            <h1 class="text-3xl font-bold">
+                Welcome Back
+            </h1>
+
+            <p class="text-gray-500 mt-2">
+                Login to your RentalCars account
+            </p>
+
+        </div>
+
+
+        <!-- Login Form -->
+
+        <form id="loginForm">
+
+            <!-- Username -->
+
+            <div class="mb-5">
+
+                <label class="block
+                              font-semibold
+                              mb-2">
+
+                    Username
+
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter your username"
+                    required
+                    class="w-full
+                           border
+                           border-gray-300
+                           rounded-lg
+                           px-4 py-3
+                           focus:outline-none
+                           focus:ring-2
+                           focus:ring-blue-500">
+
+            </div>
+
+
+            <!-- Password -->
+
+            <div class="mb-5">
+
+                <label class="block
+                              font-semibold
+                              mb-2">
+
+                    Password
+
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                    class="w-full
+                           border
+                           border-gray-300
+                           rounded-lg
+                           px-4 py-3
+                           focus:outline-none
+                           focus:ring-2
+                           focus:ring-blue-500">
+
+            </div>
+
+
+            <!-- Remember -->
+
+            <div class="flex
+                        items-center
+                        mb-6">
+
+                <input
+                    type="checkbox"
+                    class="w-4 h-4">
+
+                <label class="ml-2
+                              text-gray-600">
+
+                    Remember me
+
+                </label>
+
+            </div>
+
+
+            <!-- Login Button -->
+
+            <button
+                type="submit"
+                class="w-full
+                       bg-blue-600
+                       hover:bg-blue-700
+                       text-white
+                       py-3
+                       rounded-lg
+                       font-bold
+                       transition">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <!-- Register -->
+
+        <p class="text-center
+                  text-gray-600
+                  mt-6">
+
+            Don't have an account?
+
+            <a href="./resiter.html"
+               class="text-blue-600
+                      font-semibold
+                      hover:underline">
+
+                Create Account
+
+            </a>
+
+        </p>
+
+
+        <!-- Back Home -->
+
+        <div class="text-center mt-5">
+
+            <a href="./index.html"
+               class="text-gray-500
+                      hover:text-blue-600">
+
+                ← Back to Home
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+    <script>
+
+        const API_URL =
+            "http://127.0.0.1:8000";
+
+
+        document
+            .getElementById("loginForm")
+            .addEventListener(
+                "submit",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    // Get username
+
+                    const username =
+                        document
+                            .getElementById("username")
+                            .value
+                            .trim();
+
+
+                    // Get password
+
+                    const password =
+                        document
+                            .getElementById("password")
+                            .value;
+
+
+                    // Basic validation
+
+                    if (!username || !password) {
+
+                        alert(
+                            "Please enter username and password."
+                        );
+
+                        return;
+                    }
+
+
+                    try {
+
+                        // Django Login API
+
+                        const response =
+                            await fetch(
+                                API_URL +
+                                "/api/login/",
+                                {
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body: JSON.stringify({
+
+                                        username: username,
+
+                                        password: password
+
+                                    })
+                                }
+                            );
+
+
+                        // Get response
+
+                        const result =
+                            await response.json();
+
+
+                        // Login successful
+
+                        if (response.ok) {
+
+                            // Save user ID
+                            localStorage.setItem(
+                                "user_id",
+                                result.user_id
+                            );
+
+
+                            // Save username
+                            localStorage.setItem(
+                                "user_name",
+                                result.username
+                            );
+
+
+                            // Save email
+                            localStorage.setItem(
+                                "user_email",
+                                result.email
+                            );
+
+
+                            alert(
+                                "Login successful!"
+                            );
+
+
+                            // Go to home page
+
+                            window.location.href =
+                                "./index.html";
+
+                        }
+
+
+                        // Login failed
+
+                        else {
+
+                            alert(
+                                result.detail ||
+                                "Invalid username or password."
+                            );
+
+                        }
+
+                    }
+
+
+                    // Server error
+
+                    catch (error) {
+
+                        console.error(
+                            "Login Error:",
+                            error
+                        );
+
+                        alert(
+                            "Unable to connect to Django server. " +
+                            "Please make sure Django server is running."
+                        );
+
+                    }
+
+                }
+            );
+
+    </script>
+
+</body>
+
+</html>

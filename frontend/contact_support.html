@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact & Support - RentalCars</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-black text-white px-8 py-5 flex justify-between items-center">
+
+        <a href="./index.html" class="text-2xl font-bold">
+            🚗 RentalCars
+        </a>
+
+        <div class="flex gap-6">
+            <a href="./index.html" class="hover:text-green-400">Home</a>
+            <a href="cars.html" class="hover:text-green-400">Cars</a>
+            <a href="my_bookings.html" class="hover:text-green-400">My Bookings</a>
+            <a href="./contact_support.html" class="hover:text-green-400 transition">
+                Contact & Support
+            <a href="./login.html"
+                   class="bg-green-500
+                          hover:bg-green-600
+                          px-4 py-2.5
+                          rounded-lg
+                          font-semibold
+                          transition">
+
+                    Login
+
+                </a>
+        </div>
+
+    </nav>
+
+
+    <!-- Page -->
+    <div class="max-w-6xl mx-auto px-6 py-10">
+
+        <h1 class="text-4xl font-bold text-center mb-3">
+            Contact & Support
+        </h1>
+
+        <p class="text-center text-gray-600 mb-10">
+            Need help? Contact us or chat with our AI support assistant.
+        </p>
+
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+
+            <!-- Contact Form -->
+            <div class="bg-white rounded-xl shadow p-8">
+
+                <h2 class="text-2xl font-bold mb-6">
+                    Contact Us
+                </h2>
+
+                <form id="contactForm">
+
+                    <label class="block mb-2 font-semibold">
+                        Name
+                    </label>
+
+                    <input
+                        id="contactName"
+                        type="text"
+                        required
+                        class="w-full border rounded-lg px-4 py-3 mb-5"
+                        placeholder="Enter your name"
+                    >
+
+
+                    <label class="block mb-2 font-semibold">
+                        Email
+                    </label>
+
+                    <input
+                        id="contactEmail"
+                        type="email"
+                        required
+                        class="w-full border rounded-lg px-4 py-3 mb-5"
+                        placeholder="Enter your email"
+                    >
+
+
+                    <label class="block mb-2 font-semibold">
+                        Message
+                    </label>
+
+                    <textarea
+                        id="contactMessage"
+                        rows="5"
+                        required
+                        class="w-full border rounded-lg px-4 py-3 mb-5"
+                        placeholder="Enter your message"
+                    ></textarea>
+
+
+                    <button
+                        type="submit"
+                        class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700"
+                    >
+                        Send Message
+                    </button>
+
+                </form>
+
+                <p id="contactResult" class="mt-4 text-center"></p>
+
+            </div>
+
+
+            <!-- AI Chatbot -->
+            <div class="bg-white rounded-xl shadow p-8">
+
+                <h2 class="text-2xl font-bold mb-2">
+                    🤖 AI Support Assistant
+                </h2>
+
+                <p class="text-gray-600 mb-5">
+                    Ask anything about our car rental service.
+                </p>
+
+
+                <!-- Chat messages -->
+                <div
+                    id="chatBox"
+                    class="h-80 overflow-y-auto border rounded-lg p-4 bg-gray-50 mb-4"
+                >
+
+                    <div class="bg-gray-200 rounded-lg p-3 mb-3">
+                        Hello! 👋 I'm your RentalCars AI assistant.
+                        How can I help you?
+                    </div>
+
+                </div>
+
+
+                <!-- Chat input -->
+                <div class="flex gap-2">
+
+                    <input
+                        id="chatInput"
+                        type="text"
+                        class="flex-1 border rounded-lg px-4 py-3"
+                        placeholder="Ask your question..."
+                    >
+
+                    <button
+                        id="sendChat"
+                        class="bg-green-600 text-white px-6 rounded-lg hover:bg-green-700"
+                    >
+                        Send
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        // Contact form
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            document.getElementById("contactResult").textContent =
+                "Thank you! Your message has been received.";
+
+            document.getElementById("contactResult").className =
+                "mt-4 text-center text-green-600 font-semibold";
+
+            this.reset();
+
+        });
+
+
+        // AI Chatbot
+        const chatInput = document.getElementById("chatInput");
+        const sendChat = document.getElementById("sendChat");
+        const chatBox = document.getElementById("chatBox");
+
+
+        async function sendMessage() {
+
+            const message = chatInput.value.trim();
+
+            if (!message) {
+                return;
+            }
+
+
+            // User message
+            const userMessage = document.createElement("div");
+
+            userMessage.className =
+                "bg-green-100 rounded-lg p-3 mb-3 text-right";
+
+            userMessage.textContent = message;
+
+            chatBox.appendChild(userMessage);
+
+
+            chatInput.value = "";
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+
+            // Loading message
+            const loadingMessage = document.createElement("div");
+
+            loadingMessage.className =
+                "bg-gray-200 rounded-lg p-3 mb-3";
+
+            loadingMessage.textContent =
+                "AI is thinking...";
+
+            chatBox.appendChild(loadingMessage);
+
+
+            try {
+
+                const response = await fetch(
+                    "http://127.0.0.1:8000/api/chatbot/",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            message: message
+                        })
+                    }
+                );
+
+
+                const result = await response.json();
+
+                loadingMessage.remove();
+
+
+                const aiMessage = document.createElement("div");
+
+                aiMessage.className =
+                    "bg-gray-200 rounded-lg p-3 mb-3";
+
+                aiMessage.textContent =
+                    result.reply || "Sorry, I could not answer that.";
+
+                chatBox.appendChild(aiMessage);
+
+
+            } catch (error) {
+
+                loadingMessage.textContent =
+                    "Unable to connect to AI support.";
+
+                console.error(error);
+
+            }
+
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+        }
+
+
+        sendChat.addEventListener("click", sendMessage);
+
+
+        chatInput.addEventListener("keydown", function(event) {
+
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
