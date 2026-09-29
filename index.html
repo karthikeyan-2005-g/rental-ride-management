@@ -15,77 +15,116 @@
 
 </head>
 
-<body class="bg-gray-50 text-gray-900">
+
+<body class="bg-white text-slate-900">
 
 
-<!-- ================= NAVBAR ================= -->
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
 
-<nav class="bg-gray-950 text-white shadow-lg">
+<nav class="bg-slate-950 text-white shadow-xl">
 
     <div class="max-w-7xl mx-auto px-6">
 
-        <div class="flex items-center justify-between h-20">
+        <div class="flex items-center justify-between h-20 md:h-[103px]">
 
-            <!-- Logo -->
 
-            <a href="../index.html"
-               class="text-2xl font-bold flex items-center gap-2">
+            <!-- LOGO -->
 
-                🚗
+            <a href="./index.html"
+               class="text-2xl md:text-4xl font-extrabold
+                      flex items-center gap-3">
+
+                <span class="text-3xl md:text-4xl">
+                    🚘
+                </span>
 
                 <span>
-                    RentalCars
+                    Rental<span class="text-cyan-400">Cars</span>
                 </span>
 
             </a>
 
 
-            <!-- Menu -->
+            <!-- DESKTOP MENU -->
 
-            <div class="hidden md:flex items-center gap-8">
+            <div class="hidden md:flex items-center gap-7 lg:gap-9">
 
-                <a href="../index.html"
-                   class="text-green-400 font-semibold">
+
+                <!-- HOME -->
+
+                <a href="./index.html"
+                   class="relative
+                          text-cyan-400
+                          font-bold
+                          py-7">
 
                     Home
+
+                    <span class="absolute
+                                 bottom-0
+                                 left-0
+                                 right-0
+                                 h-1
+                                 bg-cyan-400">
+                    </span>
 
                 </a>
 
 
+                <!-- CARS -->
+
                 <a href="./frontend/cars.html"
-                   class="hover:text-green-400 transition">
+                   class="font-semibold
+                          hover:text-cyan-400
+                          transition">
 
                     Cars
 
                 </a>
 
 
+                <!-- MY BOOKINGS -->
+
                 <a href="./frontend/my_bookings.html"
-                   class="hover:text-green-400 transition">
+                   class="font-semibold
+                          hover:text-cyan-400
+                          transition">
 
                     My Bookings
 
                 </a>
-                
+
+
+                <!-- CONTACT -->
+
                 <a href="./frontend/contact_support.html"
-                     class="hover:text-green-400 transition">
+                   class="font-semibold
+                          hover:text-cyan-400
+                          transition">
 
-                    Contact & Support</a> 
+                    Contact &amp; Support
 
+                </a>
+
+
+                <!-- LOGIN -->
 
                 <a href="./frontend/login.html"
-                   class="bg-green-500
-                          hover:bg-green-600
-                          px-5 py-2.5
-                          rounded-lg
-                          font-semibold
-                          transition">
+                   class="bg-cyan-500
+                          hover:bg-cyan-400
+                          text-white
+                          px-7
+                          py-3.5
+                          rounded-xl
+                          font-bold
+                          transition
+                          shadow-lg">
 
                     Login
 
                 </a>
-                
-                
 
             </div>
 
@@ -97,107 +136,271 @@
 
 
 
-<!-- ================= HERO ================= -->
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
 
-<section class="bg-gradient-to-br
-                from-blue-100
-                via-white
-                to-blue-50">
-
-    <div class="max-w-7xl mx-auto px-6 py-24">
-
-        <div class="grid md:grid-cols-2
-                    items-center gap-12">
+<section class="relative
+                min-h-[calc(100vh-103px)]
+                overflow-hidden
+                bg-white">
 
 
-            <!-- Hero Text -->
+    <!-- =================================================
+         BACKGROUND CAR IMAGE
+    ================================================= -->
 
-            <div>
+    <div class="absolute inset-0">
 
-                <p class="text-blue-600
-                          font-semibold
-                          mb-4">
+        <img
+            src="./frontend/images/toyota-camry.jpg"
+            alt="Toyota Camry Rental Car"
+            class="w-full
+                   h-full
+                   object-cover
+                   object-center">
+
+    </div>
+
+
+    <!-- =================================================
+         LEFT WHITE GRADIENT
+         IMPORTANT:
+         Only left side is white.
+         Car remains clearly visible.
+    ================================================= -->
+
+    <div class="absolute inset-0
+                bg-gradient-to-r
+                from-white
+                via-white/90
+                via-white/45
+                to-transparent">
+    </div>
+
+
+    <!-- =================================================
+         TOP LIGHT BLUE SKY EFFECT
+    ================================================= -->
+
+    <div class="absolute
+                inset-x-0
+                top-0
+                h-[45%]
+                bg-gradient-to-b
+                from-cyan-100/25
+                to-transparent
+                pointer-events-none">
+    </div>
+
+
+    <!-- =================================================
+         RIGHT BLUE DIAGONAL
+    ================================================= -->
+
+    <div class="absolute
+                top-0
+                right-0
+                w-[28%]
+                h-full
+                pointer-events-none
+                overflow-hidden">
+
+
+        <div
+            class="absolute
+                   top-0
+                   right-[-15%]
+                   w-[100%]
+                   h-full
+                   bg-gradient-to-b
+                   from-cyan-400/55
+                   via-cyan-400/15
+                   to-transparent"
+            style="
+                clip-path: polygon(
+                    45% 0%,
+                    100% 0%,
+                    100% 100%,
+                    0% 100%
+                );
+            ">
+        </div>
+
+
+        <!-- SECOND DIAGONAL -->
+
+        <div
+            class="absolute
+                   top-0
+                   right-[35%]
+                   w-[12%]
+                   h-[58%]
+                   bg-cyan-400/15"
+            style="
+                transform: skewX(-28deg);
+            ">
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         HERO CONTENT
+    ================================================= -->
+
+    <div class="relative
+                z-10
+                max-w-[1400px]
+                mx-auto
+                px-8
+                min-h-[calc(100vh-103px)]
+                flex
+                items-center">
+
+
+        <div class="w-full
+                    max-w-[760px]
+                    py-20">
+
+
+            <!-- PREMIUM CAR RENTAL -->
+
+            <div class="flex
+                        items-center
+                        gap-5
+                        mb-12">
+
+                <div class="w-12
+                            h-[4px]
+                            bg-cyan-500">
+                </div>
+
+                <p class="text-cyan-600
+                          text-lg
+                          font-extrabold
+                          tracking-[3px]">
 
                     PREMIUM CAR RENTAL
 
                 </p>
 
-
-                <h1 class="text-5xl md:text-6xl
-                           font-extrabold
-                           leading-tight">
-
-                    Rent Your
-
-                    <span class="text-blue-600">
-
-                        Dream Car
-
-                    </span>
-
-                </h1>
-
-
-                <p class="text-gray-600
-                          text-lg
-                          mt-6
-                          max-w-lg">
-
-                    Easy, fast and affordable
-                    car rental service.
-                    Choose your perfect car
-                    and start your journey today.
-
-                </p>
-
-
-                <div class="flex gap-4 mt-8">
-
-
-                    <a href="./frontend/cars.html"
-                       class="bg-blue-600
-                              hover:bg-blue-700
-                              text-white
-                              px-7 py-3
-                              rounded-lg
-                              font-semibold
-                              transition
-                              shadow-lg">
-
-                        Browse Cars →
-
-                    </a>
-
-
-                    <a href="./frontend/register.html"
-                       class="border border-gray-300
-                              hover:bg-gray-100
-                              px-7 py-3
-                              rounded-lg
-                              font-semibold
-                              transition">
-
-                        Create Account
-
-                    </a>
-
-                </div>
-
             </div>
 
 
+            <!-- MAIN HEADING -->
 
-            <!-- Car -->
+            <h1
+                class="text-slate-900
+                       font-extrabold
+                       text-[64px]
+                       md:text-[78px]
+                       lg:text-[88px]
+                       leading-[0.98]
+                       tracking-[-4px]">
 
-            <div class="flex justify-center">
+                Rent Your
 
-                <div class="text-[180px]
-                            md:text-[220px]
-                            drop-shadow-2xl">
+                <span class="text-cyan-500">
+                    Dream
+                </span>
 
-                    🚘
+                <br>
 
-                </div>
+                <span class="text-cyan-500">
+                    Car
+                </span>
+
+            </h1>
+
+
+            <!-- DESCRIPTION -->
+
+            <p
+                class="mt-9
+                       max-w-[690px]
+                       text-slate-700
+                       text-lg
+                       md:text-xl
+                       leading-[1.7]
+                       font-medium">
+
+                Easy, fast and affordable car rental service.
+                Choose your perfect car and start your journey today.
+
+            </p>
+
+
+            <!-- BUTTONS -->
+
+            <div class="flex
+                        items-center
+                        gap-5
+                        mt-10">
+
+
+                <!-- BROWSE CARS -->
+
+                <a
+                    href="./cars.html"
+                    class="group
+                           w-[230px]
+                           h-[66px]
+                           flex
+                           items-center
+                           justify-center
+                           gap-3
+                           rounded-xl
+                           bg-gradient-to-r
+                           from-cyan-500
+                           to-cyan-400
+                           text-white
+                           text-lg
+                           font-bold
+                           shadow-lg
+                           hover:shadow-xl
+                           hover:-translate-y-1
+                           transition">
+
+                    Browse Cars
+
+                    <span
+                        class="text-2xl
+                               group-hover:translate-x-1
+                               transition">
+
+                        →
+
+                    </span>
+
+                </a>
+
+
+                <!-- CREATE ACCOUNT -->
+
+                <a
+                    href="./resiter.html"
+                    class="w-[210px]
+                           h-[66px]
+                           flex
+                           items-center
+                           justify-center
+                           rounded-xl
+                           border-2
+                           border-slate-400
+                           bg-white/75
+                           text-slate-800
+                           text-lg
+                           font-bold
+                           hover:border-cyan-500
+                           hover:text-cyan-600
+                           hover:bg-white
+                           hover:-translate-y-1
+                           transition">
+
+                    Create Account
+
+                </a>
 
             </div>
 
@@ -208,16 +411,23 @@
 </section>
 
 
-
-<!-- ================= FEATURES ================= -->
+<!-- =========================================================
+     FEATURES SECTION
+========================================================= -->
 
 <section class="max-w-7xl mx-auto
-                px-6 py-20">
+                px-6
+                py-20">
+
+
+    <!-- SECTION TITLE -->
 
     <div class="text-center mb-12">
 
-        <p class="text-blue-600
-                  font-semibold">
+
+        <p class="text-cyan-600
+                  font-bold
+                  tracking-[3px]">
 
             OUR FEATURES
 
@@ -225,15 +435,20 @@
 
 
         <h2 class="text-4xl
-                   font-bold
-                   mt-2">
+                   md:text-5xl
+                   font-extrabold
+                   text-slate-950
+                   mt-3">
 
             Why Choose Us?
 
         </h2>
 
 
-        <p class="text-gray-500 mt-4">
+        <p class="text-slate-500
+                  mt-4
+                  max-w-2xl
+                  mx-auto">
 
             Everything you need for
             a simple and comfortable
@@ -245,26 +460,34 @@
 
 
 
-    <div class="grid md:grid-cols-3
+    <!-- FEATURE CARDS -->
+
+    <div class="grid
+                md:grid-cols-3
                 gap-8">
 
 
-        <!-- Card 1 -->
+        <!-- CARD 1 -->
 
         <div class="bg-white
                     rounded-2xl
                     p-8
                     text-center
-                    shadow-md
-                    hover:shadow-xl
+                    border
+                    border-slate-100
+                    shadow-lg
+                    hover:shadow-2xl
                     hover:-translate-y-2
                     transition">
 
-            <div class="w-16 h-16
+
+            <div class="w-16
+                        h-16
                         mx-auto
-                        rounded-full
-                        bg-blue-100
-                        flex items-center
+                        rounded-2xl
+                        bg-cyan-100
+                        flex
+                        items-center
                         justify-center
                         text-3xl">
 
@@ -275,6 +498,7 @@
 
             <h3 class="text-xl
                        font-bold
+                       text-slate-900
                        mt-5">
 
                 Best Cars
@@ -282,8 +506,9 @@
             </h3>
 
 
-            <p class="text-gray-500
-                      mt-3">
+            <p class="text-slate-500
+                      mt-3
+                      leading-relaxed">
 
                 Choose from a wide range
                 of quality and comfortable
@@ -295,22 +520,27 @@
 
 
 
-        <!-- Card 2 -->
+        <!-- CARD 2 -->
 
         <div class="bg-white
                     rounded-2xl
                     p-8
                     text-center
-                    shadow-md
-                    hover:shadow-xl
+                    border
+                    border-slate-100
+                    shadow-lg
+                    hover:shadow-2xl
                     hover:-translate-y-2
                     transition">
 
-            <div class="w-16 h-16
+
+            <div class="w-16
+                        h-16
                         mx-auto
-                        rounded-full
-                        bg-green-100
-                        flex items-center
+                        rounded-2xl
+                        bg-emerald-100
+                        flex
+                        items-center
                         justify-center
                         text-3xl">
 
@@ -321,6 +551,7 @@
 
             <h3 class="text-xl
                        font-bold
+                       text-slate-900
                        mt-5">
 
                 Affordable Price
@@ -328,8 +559,9 @@
             </h3>
 
 
-            <p class="text-gray-500
-                      mt-3">
+            <p class="text-slate-500
+                      mt-3
+                      leading-relaxed">
 
                 Get premium cars at
                 affordable rental prices.
@@ -340,22 +572,27 @@
 
 
 
-        <!-- Card 3 -->
+        <!-- CARD 3 -->
 
         <div class="bg-white
                     rounded-2xl
                     p-8
                     text-center
-                    shadow-md
-                    hover:shadow-xl
+                    border
+                    border-slate-100
+                    shadow-lg
+                    hover:shadow-2xl
                     hover:-translate-y-2
                     transition">
 
-            <div class="w-16 h-16
+
+            <div class="w-16
+                        h-16
                         mx-auto
-                        rounded-full
-                        bg-purple-100
-                        flex items-center
+                        rounded-2xl
+                        bg-indigo-100
+                        flex
+                        items-center
                         justify-center
                         text-3xl">
 
@@ -366,6 +603,7 @@
 
             <h3 class="text-xl
                        font-bold
+                       text-slate-900
                        mt-5">
 
                 Easy Booking
@@ -373,8 +611,9 @@
             </h3>
 
 
-            <p class="text-gray-500
-                      mt-3">
+            <p class="text-slate-500
+                      mt-3
+                      leading-relaxed">
 
                 Book your favorite car
                 quickly and easily.
@@ -383,49 +622,92 @@
 
         </div>
 
+
     </div>
 
 </section>
 
 
 
-<!-- ================= CTA ================= -->
+<!-- =========================================================
+     CALL TO ACTION
+========================================================= -->
 
-<section class="max-w-7xl mx-auto px-6 pb-20">
+<section class="max-w-7xl
+                mx-auto
+                px-6
+                pb-20">
 
-    <div class="bg-blue-600
+
+    <div class="relative
+                overflow-hidden
+                bg-gradient-to-r
+                from-slate-950
+                to-cyan-700
                 rounded-3xl
-                p-10 md:p-14
+                p-10
+                md:p-14
                 text-white
-                text-center">
+                text-center
+                shadow-2xl">
 
-        <h2 class="text-3xl
+
+        <!-- DECORATIVE CIRCLE -->
+
+        <div class="absolute
+                    -top-20
+                    -right-20
+                    w-60
+                    h-60
+                    bg-cyan-400
+                    opacity-20
+                    rounded-full">
+        </div>
+
+
+
+        <!-- CTA TITLE -->
+
+        <h2 class="relative
+                   text-3xl
                    md:text-4xl
-                   font-bold">
+                   font-extrabold">
 
             Ready to Start Your Journey?
 
         </h2>
 
 
-        <p class="mt-4
-                  text-blue-100">
+
+        <!-- CTA DESCRIPTION -->
+
+        <p class="relative
+                  mt-4
+                  text-cyan-100">
 
             Find your perfect rental car today.
 
         </p>
 
 
+
+        <!-- CTA BUTTON -->
+
         <a href="./frontend/cars.html"
-           class="inline-block
+           class="relative
+                  inline-flex
+                  items-center
+                  justify-center
                   mt-7
-                  bg-white
-                  text-blue-600
-                  px-8 py-3
-                  rounded-lg
+                  bg-cyan-400
+                  hover:bg-cyan-300
+                  text-slate-950
+                  px-8
+                  py-3.5
+                  rounded-xl
                   font-bold
-                  hover:bg-gray-100
-                  transition">
+                  transition
+                  shadow-lg">
 
             Explore Cars
 
@@ -437,22 +719,27 @@
 
 
 
-<!-- ================= FOOTER ================= -->
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
-<footer class="bg-gray-950
-               text-gray-400
-               py-8">
+<footer class="bg-slate-950
+               text-slate-400
+               py-10">
+
 
     <div class="max-w-7xl
                 mx-auto
                 px-6
                 text-center">
 
+
         <p>
 
             © 2026
 
-            <span class="text-white font-semibold">
+            <span class="text-white
+                         font-bold">
 
                 Rental Car Management System
 
@@ -461,16 +748,17 @@
         </p>
 
 
-        <p class="text-sm mt-2">
+        <p class="text-sm
+                  mt-3
+                  text-slate-500">
 
-            Built with HTML, Tailwind CSS & JavaScript
+            Built with HTML, Tailwind CSS &amp; JavaScript
 
         </p>
 
     </div>
 
 </footer>
-
 
 
 </body>
