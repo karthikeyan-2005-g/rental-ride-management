@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -10,7 +11,9 @@
     <title>Login - RentalCars</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
+
 
 <body class="min-h-screen
              bg-gradient-to-br
@@ -20,6 +23,7 @@
              justify-center
              px-6">
 
+
     <!-- Login Card -->
 
     <div class="w-full max-w-md
@@ -27,6 +31,7 @@
                 rounded-2xl
                 shadow-2xl
                 p-8">
+
 
         <!-- Logo -->
 
@@ -47,9 +52,11 @@
         </div>
 
 
+
         <!-- Login Form -->
 
         <form id="loginForm">
+
 
             <!-- Username -->
 
@@ -62,6 +69,7 @@
                     Username
 
                 </label>
+
 
                 <input
                     type="text"
@@ -80,6 +88,7 @@
             </div>
 
 
+
             <!-- Password -->
 
             <div class="mb-5">
@@ -91,6 +100,7 @@
                     Password
 
                 </label>
+
 
                 <input
                     type="password"
@@ -109,6 +119,7 @@
             </div>
 
 
+
             <!-- Remember -->
 
             <div class="flex
@@ -119,6 +130,7 @@
                     type="checkbox"
                     class="w-4 h-4">
 
+
                 <label class="ml-2
                               text-gray-600">
 
@@ -127,6 +139,7 @@
                 </label>
 
             </div>
+
 
 
             <!-- Login Button -->
@@ -149,6 +162,7 @@
         </form>
 
 
+
         <!-- Register -->
 
         <p class="text-center
@@ -169,6 +183,7 @@
         </p>
 
 
+
         <!-- Back Home -->
 
         <div class="text-center mt-5">
@@ -186,13 +201,259 @@
     </div>
 
 
+
+    <!-- ==========================================
+         CUSTOM ALERT MODAL
+         ========================================== -->
+
+    <div id="alertModal"
+         class="fixed inset-0
+                bg-black bg-opacity-50
+                hidden
+                items-center
+                justify-center
+                z-50
+                px-4">
+
+
+        <div class="bg-white
+                    w-full
+                    max-w-md
+                    rounded-2xl
+                    shadow-2xl
+                    p-7
+                    text-center
+                    transform
+                    transition-all">
+
+
+            <!-- Alert Icon -->
+
+            <div id="alertIcon"
+                 class="w-16 h-16
+                        mx-auto
+                        rounded-full
+                        bg-red-100
+                        flex
+                        items-center
+                        justify-center
+                        text-3xl
+                        mb-5">
+
+                ⚠️
+
+            </div>
+
+
+
+            <!-- Alert Title -->
+
+            <h2 id="alertTitle"
+                class="text-2xl
+                       font-bold
+                       text-gray-800">
+
+                Login Failed
+
+            </h2>
+
+
+
+            <!-- Alert Message -->
+
+            <p id="alertMessage"
+               class="text-gray-500
+                      mt-3
+                      leading-relaxed">
+
+                Invalid username or password.
+
+            </p>
+
+
+
+            <!-- OK Button -->
+
+            <button
+                id="alertOkButton"
+                type="button"
+                class="mt-6
+                       px-8
+                       py-3
+                       bg-blue-600
+                       hover:bg-blue-700
+                       text-white
+                       rounded-lg
+                       font-semibold
+                       transition">
+
+                OK
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
     <!-- JavaScript -->
 
     <script>
 
+
         const API_URL =
             "http://127.0.0.1:8000";
 
+
+
+        // ==========================================
+        // CUSTOM ALERT FUNCTION
+        // ==========================================
+
+        function showAlert(
+            title,
+            message,
+            type = "error",
+            callback = null
+        ) {
+
+
+            const modal =
+                document.getElementById(
+                    "alertModal"
+                );
+
+
+            const icon =
+                document.getElementById(
+                    "alertIcon"
+                );
+
+
+            const alertTitle =
+                document.getElementById(
+                    "alertTitle"
+                );
+
+
+            const alertMessage =
+                document.getElementById(
+                    "alertMessage"
+                );
+
+
+            const okButton =
+                document.getElementById(
+                    "alertOkButton"
+                );
+
+
+
+            // ==========================================
+            // ERROR STYLE
+            // ==========================================
+
+            if (type === "error") {
+
+                icon.innerHTML = "⚠️";
+
+                icon.className =
+                    "w-16 h-16 mx-auto rounded-full " +
+                    "bg-red-100 text-red-600 " +
+                    "flex items-center justify-center " +
+                    "text-3xl mb-5";
+
+
+                okButton.className =
+                    "mt-6 px-8 py-3 " +
+                    "bg-red-600 hover:bg-red-700 " +
+                    "text-white rounded-lg " +
+                    "font-semibold transition";
+
+            }
+
+
+
+            // ==========================================
+            // SUCCESS STYLE
+            // ==========================================
+
+            else if (type === "success") {
+
+                icon.innerHTML = "✓";
+
+                icon.className =
+                    "w-16 h-16 mx-auto rounded-full " +
+                    "bg-green-100 text-green-600 " +
+                    "flex items-center justify-center " +
+                    "text-3xl font-bold mb-5";
+
+
+                okButton.className =
+                    "mt-6 px-8 py-3 " +
+                    "bg-green-600 hover:bg-green-700 " +
+                    "text-white rounded-lg " +
+                    "font-semibold transition";
+
+            }
+
+
+
+            // Set text
+
+            alertTitle.innerText =
+                title;
+
+
+            alertMessage.innerText =
+                message;
+
+
+
+            // Show modal
+
+            modal.classList.remove(
+                "hidden"
+            );
+
+            modal.classList.add(
+                "flex"
+            );
+
+
+
+            // OK button
+
+            okButton.onclick =
+                function () {
+
+
+                    modal.classList.add(
+                        "hidden"
+                    );
+
+
+                    modal.classList.remove(
+                        "flex"
+                    );
+
+
+                    if (callback) {
+
+                        callback();
+
+                    }
+
+                };
+
+        }
+
+
+
+        // ==========================================
+        // LOGIN FORM
+        // ==========================================
 
         document
             .getElementById("loginForm")
@@ -200,63 +461,90 @@
                 "submit",
                 async function (event) {
 
+
                     event.preventDefault();
+
 
 
                     // Get username
 
                     const username =
                         document
-                            .getElementById("username")
+                            .getElementById(
+                                "username"
+                            )
                             .value
                             .trim();
+
 
 
                     // Get password
 
                     const password =
                         document
-                            .getElementById("password")
+                            .getElementById(
+                                "password"
+                            )
                             .value;
 
 
-                    // Basic validation
+
+                    // ==========================================
+                    // BASIC VALIDATION
+                    // ==========================================
 
                     if (!username || !password) {
 
-                        alert(
-                            "Please enter username and password."
+                        showAlert(
+                            "Missing Information",
+                            "Please enter username and password.",
+                            "error"
                         );
 
                         return;
+
                     }
+
 
 
                     try {
 
-                        // Django Login API
+
+                        // ==========================================
+                        // DJANGO LOGIN API
+                        // ==========================================
 
                         const response =
                             await fetch(
+
                                 API_URL +
                                 "/api/login/",
+
                                 {
+
                                     method: "POST",
 
                                     headers: {
+
                                         "Content-Type":
                                             "application/json"
+
                                     },
 
                                     body: JSON.stringify({
 
-                                        username: username,
+                                        username:
+                                            username,
 
-                                        password: password
+                                        password:
+                                            password
 
                                     })
+
                                 }
+
                             );
+
 
 
                         // Get response
@@ -265,51 +553,81 @@
                             await response.json();
 
 
-                        // Login successful
+
+                        // ==========================================
+                        // LOGIN SUCCESSFUL
+                        // ==========================================
 
                         if (response.ok) {
 
+
                             // Save user ID
+
                             localStorage.setItem(
                                 "user_id",
                                 result.user_id
                             );
 
 
+
                             // Save username
+
                             localStorage.setItem(
                                 "user_name",
                                 result.username
                             );
 
 
+
                             // Save email
+
                             localStorage.setItem(
                                 "user_email",
                                 result.email
                             );
 
 
-                            alert(
-                                "Login successful!"
+
+                            // Custom success popup
+
+                            showAlert(
+                                "Login Successful!",
+                                "Welcome back, " +
+                                result.username +
+                                "! You have successfully logged in.",
+                                "success",
+
+                                function () {
+
+                                    // Go to home page
+
+                                    window.location.href =
+                                        "../index.html";
+
+                                }
+
                             );
-
-
-                            // Go to home page
-
-                            window.location.href =
-                                "../index.html";
 
                         }
 
 
-                        // Login failed
+
+                        // ==========================================
+                        // LOGIN FAILED
+                        // ==========================================
 
                         else {
 
-                            alert(
+
+                            showAlert(
+
+                                "Login Failed",
+
                                 result.detail ||
-                                "Invalid username or password."
+                                "Invalid username or password.",
+
+                                "error"
+
                             );
 
                         }
@@ -317,26 +635,39 @@
                     }
 
 
-                    // Server error
+
+                    // ==========================================
+                    // SERVER ERROR
+                    // ==========================================
 
                     catch (error) {
+
 
                         console.error(
                             "Login Error:",
                             error
                         );
 
-                        alert(
+
+                        showAlert(
+
+                            "Connection Error",
+
                             "Unable to connect to Django server. " +
-                            "Please make sure Django server is running."
+                            "Please make sure Django server is running.",
+
+                            "error"
+
                         );
 
                     }
 
                 }
+
             );
 
     </script>
+
 
 </body>
 

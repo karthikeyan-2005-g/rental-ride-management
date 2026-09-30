@@ -58,10 +58,13 @@
 
                 </a>
 
-                <a href="./contact_support.html"
-                     class="hover:text-green-400 transition">
 
-                    Contact & Support</a> 
+                <a href="./contact_support.html"
+                   class="hover:text-green-400 transition">
+
+                    Contact & Support
+
+                </a>
 
 
                 <a href="./login.html"
@@ -179,7 +182,103 @@
 
 
 
+    <!-- ==========================================
+         CUSTOM CONFIRMATION / MESSAGE MODAL
+         ========================================== -->
+
+    <div id="customModal"
+         class="fixed inset-0 bg-black bg-opacity-50
+                hidden items-center justify-center
+                z-50">
+
+        <div class="bg-white rounded-2xl shadow-2xl
+                    w-full max-w-md mx-4 p-6
+                    transform transition-all">
+
+
+            <!-- Modal Icon -->
+
+            <div id="modalIcon"
+                 class="w-16 h-16 mx-auto rounded-full
+                        bg-red-100
+                        flex items-center justify-center
+                        text-3xl mb-5">
+
+                ⚠️
+
+            </div>
+
+
+            <!-- Modal Title -->
+
+            <h2 id="modalTitle"
+                class="text-2xl font-bold
+                       text-gray-800 text-center">
+
+                Cancel Booking?
+
+            </h2>
+
+
+            <!-- Modal Message -->
+
+            <p id="modalMessage"
+               class="text-gray-500 text-center
+                      mt-3 leading-relaxed">
+
+                Are you sure you want to cancel this booking?
+
+            </p>
+
+
+            <!-- Modal Buttons -->
+
+            <div id="modalButtons"
+                 class="flex justify-center
+                        gap-4 mt-7">
+
+
+                <!-- Keep Booking -->
+
+                <button id="modalCancelBtn"
+                        type="button"
+                        class="px-5 py-3 rounded-lg
+                               bg-gray-200
+                               text-gray-700
+                               font-semibold
+                               hover:bg-gray-300
+                               transition">
+
+                    Keep Booking
+
+                </button>
+
+
+                <!-- Confirm -->
+
+                <button id="modalConfirmBtn"
+                        type="button"
+                        class="px-5 py-3 rounded-lg
+                               bg-red-600
+                               text-white
+                               font-semibold
+                               hover:bg-red-700
+                               transition">
+
+                    Cancel Booking
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
     <script>
+
 
         // ==========================================
         // DJANGO BACKEND
@@ -188,21 +287,32 @@
         const API_URL = "http://127.0.0.1:8000";
 
 
+
         // ==========================================
         // GET LOGGED-IN USER
         // ==========================================
 
-        const userId = localStorage.getItem("user_id");
+        const userId =
+            localStorage.getItem("user_id");
 
-        console.log("Logged in User ID:", userId);
+
+        console.log(
+            "Logged in User ID:",
+            userId
+        );
+
 
 
         const bookingContainer =
-            document.getElementById("bookingContainer");
+            document.getElementById(
+                "bookingContainer"
+            );
 
 
         const noBookings =
-            document.getElementById("noBookings");
+            document.getElementById(
+                "noBookings"
+            );
 
 
 
@@ -216,7 +326,8 @@
 
                 const response =
                     await fetch(
-                        API_URL + "/api/cars/"
+                        API_URL +
+                        "/api/cars/"
                     );
 
 
@@ -259,9 +370,13 @@
 
             if (!userId) {
 
-                noBookings.classList.remove("hidden");
+                noBookings.classList.remove(
+                    "hidden"
+                );
 
-                bookingContainer.classList.add("hidden");
+                bookingContainer.classList.add(
+                    "hidden"
+                );
 
                 return;
 
@@ -304,11 +419,13 @@
                 // ==========================================
 
                 const activeBookings =
-                    bookings.filter(function(booking) {
+                    bookings.filter(
+                        function(booking) {
 
-                        return booking.status !== "Cancelled";
+                            return booking.status !== "Cancelled";
 
-                    });
+                        }
+                    );
 
 
 
@@ -318,9 +435,13 @@
 
                 if (activeBookings.length === 0) {
 
-                    noBookings.classList.remove("hidden");
+                    noBookings.classList.remove(
+                        "hidden"
+                    );
 
-                    bookingContainer.classList.add("hidden");
+                    bookingContainer.classList.add(
+                        "hidden"
+                    );
 
                     bookingContainer.innerHTML = "";
 
@@ -334,9 +455,13 @@
                 // SHOW BOOKINGS
                 // ==========================================
 
-                noBookings.classList.add("hidden");
+                noBookings.classList.add(
+                    "hidden"
+                );
 
-                bookingContainer.classList.remove("hidden");
+                bookingContainer.classList.remove(
+                    "hidden"
+                );
 
                 bookingContainer.innerHTML = "";
 
@@ -346,7 +471,8 @@
                 // GET CAR DATA
                 // ==========================================
 
-                const cars = await getCars();
+                const cars =
+                    await getCars();
 
 
 
@@ -354,133 +480,229 @@
                 // DISPLAY EACH BOOKING
                 // ==========================================
 
-                activeBookings.forEach(function(booking) {
+                activeBookings.forEach(
+                    function(booking) {
 
 
-                    // Find car using booking.car ID
+                        // Find car using booking.car ID
 
-                    const car =
-                        cars.find(function(carItem) {
+                        const car =
+                            cars.find(
+                                function(carItem) {
 
-                            return carItem.id === booking.car;
+                                    return carItem.id === booking.car;
 
-                        });
-
-
-
-                    const carName =
-                        car
-                            ? car.name
-                            : "Car ID: " + booking.car;
+                                }
+                            );
 
 
 
-                    const bookingCard =
-                        document.createElement("div");
+                        const carName =
+                            car
+                                ? car.name
+                                : "Car ID: " +
+                                  booking.car;
 
 
 
-                    bookingCard.className =
-                        "bg-white rounded-xl shadow-md p-6";
+                        const bookingCard =
+                            document.createElement(
+                                "div"
+                            );
 
 
 
-                    bookingCard.innerHTML = `
-
-                        <div class="flex flex-col
-                                    md:flex-row
-                                    justify-between
-                                    gap-6">
+                        bookingCard.className =
+                            "bg-white rounded-xl shadow-md p-6";
 
 
-                            <div>
 
-                                <h2 class="text-2xl
-                                           font-bold
-                                           text-gray-800">
+                        bookingCard.innerHTML = `
 
-                                    ${carName}
-
-                                </h2>
+                            <div class="flex flex-col
+                                        md:flex-row
+                                        justify-between
+                                        gap-6">
 
 
-                                <p class="text-gray-500 mt-1">
+                                <div>
 
-                                    Booking ID:
-                                    #${booking.id}
+                                    <h2 class="text-2xl
+                                               font-bold
+                                               text-gray-800">
 
-                                </p>
+                                        ${carName}
+
+                                    </h2>
+
+
+                                    <p class="text-gray-500 mt-1">
+
+                                        Booking ID:
+                                        #${booking.id}
+
+                                    </p>
+
+                                </div>
+
+
+
+                                <div>
+
+                                    <span class="bg-green-100
+                                                 text-green-700
+                                                 px-4 py-2
+                                                 rounded-full
+                                                 text-sm
+                                                 font-semibold">
+
+                                        ${booking.status}
+
+                                    </span>
+
+                                </div>
 
                             </div>
 
 
 
-                            <div>
+                            <!-- Booking Details -->
 
-                                <span class="bg-green-100
-                                             text-green-700
-                                             px-4 py-2
-                                             rounded-full
-                                             text-sm
-                                             font-semibold">
+                            <div class="grid
+                                        grid-cols-1
+                                        md:grid-cols-2
+                                        lg:grid-cols-4
+                                        gap-6 mt-6">
 
-                                    ${booking.status}
 
-                                </span>
+                                <!-- Pickup Date -->
+
+                                <div>
+
+                                    <p class="text-gray-500 text-sm">
+
+                                        Pickup Date
+
+                                    </p>
+
+
+                                    <p class="font-semibold
+                                              text-gray-800">
+
+                                        ${booking.pickup_date}
+
+                                    </p>
+
+                                </div>
+
+
+
+                                <!-- Return Date -->
+
+                                <div>
+
+                                    <p class="text-gray-500 text-sm">
+
+                                        Return Date
+
+                                    </p>
+
+
+                                    <p class="font-semibold
+                                              text-gray-800">
+
+                                        ${booking.return_date}
+
+                                    </p>
+
+                                </div>
+
+
+
+                                <!-- Pickup Location -->
+
+                                <div>
+
+                                    <p class="text-gray-500 text-sm">
+
+                                        Pickup Location
+
+                                    </p>
+
+
+                                    <p class="font-semibold
+                                              text-gray-800">
+
+                                        ${booking.pickup_location ||
+                                          "Not available"}
+
+                                    </p>
+
+                                </div>
+
+
+
+                                <!-- Total Amount -->
+
+                                <div>
+
+                                    <p class="text-gray-500 text-sm">
+
+                                        Total Amount
+
+                                    </p>
+
+
+                                    <p class="font-bold
+                                              text-blue-600
+                                              text-lg">
+
+                                        ₹${Number(
+                                            booking.total_price || 0
+                                        ).toLocaleString("en-IN")}
+
+                                    </p>
+
+                                </div>
 
                             </div>
 
 
-                        </div>
 
+                            <!-- Customer Details -->
 
+                            <div class="border-t
+                                        mt-6
+                                        pt-4">
 
-                        <!-- Booking Details -->
-
-                        <div class="grid
-                                    grid-cols-1
-                                    md:grid-cols-2
-                                    lg:grid-cols-4
-                                    gap-6 mt-6">
-
-
-                            <!-- Pickup Date -->
-
-                            <div>
 
                                 <p class="text-gray-500 text-sm">
 
-                                    Pickup Date
+                                    Customer
 
                                 </p>
 
 
-                                <p class="font-semibold
-                                          text-gray-800">
+                                <p class="font-semibold">
 
-                                    ${booking.pickup_date}
-
-                                </p>
-
-                            </div>
-
-
-
-                            <!-- Return Date -->
-
-                            <div>
-
-                                <p class="text-gray-500 text-sm">
-
-                                    Return Date
+                                    ${booking.customer_name ||
+                                      "Customer"}
 
                                 </p>
 
 
-                                <p class="font-semibold
-                                          text-gray-800">
+                                <p class="text-gray-500
+                                          text-sm mt-1">
 
-                                    ${booking.return_date}
+                                    ${booking.email || ""}
+
+                                </p>
+
+
+                                <p class="text-gray-500
+                                          text-sm mt-1">
+
+                                    ${booking.phone || ""}
 
                                 </p>
 
@@ -488,136 +710,41 @@
 
 
 
-                            <!-- Pickup Location -->
+                            <!-- Cancel Button -->
 
-                            <div>
+                            <div class="mt-5">
 
-                                <p class="text-gray-500 text-sm">
+                                <button
+                                    onclick="cancelBooking(${booking.id})"
+                                    class="bg-red-600
+                                           text-white
+                                           px-6 py-3
+                                           rounded-lg
+                                           hover:bg-red-700
+                                           font-semibold
+                                           transition">
 
-                                    Pickup Location
+                                    Cancel Booking
 
-                                </p>
-
-
-                                <p class="font-semibold
-                                          text-gray-800">
-
-                                    ${booking.pickup_location ||
-                                      "Not available"}
-
-                                </p>
-
-                            </div>
-
-
-
-                            <!-- Total Amount -->
-
-                            <div>
-
-                                <p class="text-gray-500 text-sm">
-
-                                    Total Amount
-
-                                </p>
-
-
-                                <p class="font-bold
-                                          text-blue-600
-                                          text-lg">
-
-                                    ₹${Number(
-                                        booking.total_price || 0
-                                    ).toLocaleString("en-IN")}
-
-                                </p>
+                                </button>
 
                             </div>
 
-
-                        </div>
-
-
-
-                        <!-- Customer Details -->
-
-                        <div class="border-t
-                                    mt-6
-                                    pt-4">
-
-
-                            <p class="text-gray-500 text-sm">
-
-                                Customer
-
-                            </p>
-
-
-                            <p class="font-semibold">
-
-                                ${booking.customer_name ||
-                                  "Customer"}
-
-                            </p>
-
-
-                            <p class="text-gray-500 text-sm mt-1">
-
-                                ${booking.email || ""}
-
-                            </p>
-
-
-                            <p class="text-gray-500 text-sm mt-1">
-
-                                ${booking.phone || ""}
-
-                            </p>
-
-
-                        </div>
+                        `;
 
 
 
-                        <!-- Cancel Button -->
+                        bookingContainer.appendChild(
+                            bookingCard
+                        );
 
-                        <div class="mt-5">
-
-
-                            <button
-                                onclick="cancelBooking(${booking.id})"
-
-                                class="bg-red-600
-                                       text-white
-                                       px-6 py-3
-                                       rounded-lg
-                                       hover:bg-red-700
-                                       font-semibold">
-
-                                Cancel Booking
-
-                            </button>
-
-
-                        </div>
-
-                    `;
-
-
-
-                    bookingContainer.appendChild(
-                        bookingCard
-                    );
-
-
-                });
-
+                    }
+                );
 
             }
 
 
             catch (error) {
-
 
                 console.error(
                     "Booking Error:",
@@ -634,8 +761,145 @@
                     "hidden"
                 );
 
-
             }
+
+        }
+
+
+
+        // ==========================================
+        // CUSTOM CONFIRMATION MODAL
+        // ==========================================
+
+        function showConfirmModal() {
+
+            return new Promise(
+                function(resolve) {
+
+
+                    const modal =
+                        document.getElementById(
+                            "customModal"
+                        );
+
+
+                    const title =
+                        document.getElementById(
+                            "modalTitle"
+                        );
+
+
+                    const message =
+                        document.getElementById(
+                            "modalMessage"
+                        );
+
+
+                    const icon =
+                        document.getElementById(
+                            "modalIcon"
+                        );
+
+
+                    const confirmBtn =
+                        document.getElementById(
+                            "modalConfirmBtn"
+                        );
+
+
+                    const cancelBtn =
+                        document.getElementById(
+                            "modalCancelBtn"
+                        );
+
+
+
+                    // Reset modal
+
+                    icon.innerHTML = "⚠️";
+
+
+                    icon.className =
+                        "w-16 h-16 mx-auto rounded-full " +
+                        "bg-red-100 " +
+                        "flex items-center justify-center " +
+                        "text-3xl mb-5";
+
+
+                    title.innerText =
+                        "Cancel Booking?";
+
+
+                    message.innerText =
+                        "Are you sure you want to cancel this booking?";
+
+
+                    cancelBtn.classList.remove(
+                        "hidden"
+                    );
+
+
+                    confirmBtn.className =
+                        "px-5 py-3 rounded-lg " +
+                        "bg-red-600 text-white " +
+                        "font-semibold " +
+                        "hover:bg-red-700 transition";
+
+
+                    confirmBtn.innerText =
+                        "Cancel Booking";
+
+
+                    // Show modal
+
+                    modal.classList.remove(
+                        "hidden"
+                    );
+
+                    modal.classList.add(
+                        "flex"
+                    );
+
+
+
+                    // Keep booking
+
+                    cancelBtn.onclick =
+                        function() {
+
+                            modal.classList.add(
+                                "hidden"
+                            );
+
+                            modal.classList.remove(
+                                "flex"
+                            );
+
+                            resolve(false);
+
+                        };
+
+
+
+                    // Cancel booking
+
+                    confirmBtn.onclick =
+                        function() {
+
+                            modal.classList.add(
+                                "hidden"
+                            );
+
+                            modal.classList.remove(
+                                "flex"
+                            );
+
+                            resolve(true);
+
+                        };
+
+                }
+            );
 
         }
 
@@ -649,9 +913,7 @@
 
 
             const confirmCancel =
-                confirm(
-                    "Are you sure you want to cancel this booking?"
-                );
+                await showConfirmModal();
 
 
             if (!confirmCancel) {
@@ -691,23 +953,18 @@
                 if (response.ok) {
 
 
-                    alert(
-                        "Booking cancelled successfully!"
+                    showSuccessModal(
+                        "Booking Cancelled",
+                        "Your booking has been cancelled successfully."
                     );
 
-
-
-                    // Reload bookings
-
-                    loadBookings();
-
-
                 }
+
 
                 else {
 
 
-                    alert(
+                    showErrorModal(
 
                         result.detail ||
                         result.error ||
@@ -716,7 +973,6 @@
                     );
 
                 }
-
 
             }
 
@@ -730,12 +986,257 @@
                 );
 
 
-                alert(
+                showErrorModal(
                     "Unable to connect to Django backend."
                 );
 
-
             }
+
+        }
+
+
+
+        // ==========================================
+        // SUCCESS MODAL
+        // ==========================================
+
+        function showSuccessModal(
+            titleText,
+            messageText
+        ) {
+
+
+            const modal =
+                document.getElementById(
+                    "customModal"
+                );
+
+
+            const title =
+                document.getElementById(
+                    "modalTitle"
+                );
+
+
+            const message =
+                document.getElementById(
+                    "modalMessage"
+                );
+
+
+            const icon =
+                document.getElementById(
+                    "modalIcon"
+                );
+
+
+            const confirmBtn =
+                document.getElementById(
+                    "modalConfirmBtn"
+                );
+
+
+            const cancelBtn =
+                document.getElementById(
+                    "modalCancelBtn"
+                );
+
+
+
+            // Success icon
+
+            icon.innerHTML = "✓";
+
+
+            icon.className =
+                "w-16 h-16 mx-auto rounded-full " +
+                "bg-green-100 text-green-600 " +
+                "flex items-center justify-center " +
+                "text-3xl font-bold mb-5";
+
+
+
+            title.innerText =
+                titleText;
+
+
+            message.innerText =
+                messageText;
+
+
+
+            // Hide cancel button
+
+            cancelBtn.classList.add(
+                "hidden"
+            );
+
+
+
+            // OK button
+
+            confirmBtn.innerText =
+                "OK";
+
+
+            confirmBtn.className =
+                "px-6 py-3 rounded-lg " +
+                "bg-green-600 text-white " +
+                "font-semibold " +
+                "hover:bg-green-700 transition";
+
+
+
+            // Show modal
+
+            modal.classList.remove(
+                "hidden"
+            );
+
+            modal.classList.add(
+                "flex"
+            );
+
+
+
+            confirmBtn.onclick =
+                function() {
+
+
+                    modal.classList.add(
+                        "hidden"
+                    );
+
+
+                    modal.classList.remove(
+                        "flex"
+                    );
+
+
+                    // Reload bookings
+
+                    loadBookings();
+
+                };
+
+        }
+
+
+
+        // ==========================================
+        // ERROR MODAL
+        // ==========================================
+
+        function showErrorModal(messageText) {
+
+
+            const modal =
+                document.getElementById(
+                    "customModal"
+                );
+
+
+            const title =
+                document.getElementById(
+                    "modalTitle"
+                );
+
+
+            const message =
+                document.getElementById(
+                    "modalMessage"
+                );
+
+
+            const icon =
+                document.getElementById(
+                    "modalIcon"
+                );
+
+
+            const confirmBtn =
+                document.getElementById(
+                    "modalConfirmBtn"
+                );
+
+
+            const cancelBtn =
+                document.getElementById(
+                    "modalCancelBtn"
+                );
+
+
+
+            // Error icon
+
+            icon.innerHTML = "✕";
+
+
+            icon.className =
+                "w-16 h-16 mx-auto rounded-full " +
+                "bg-red-100 text-red-600 " +
+                "flex items-center justify-center " +
+                "text-3xl font-bold mb-5";
+
+
+
+            title.innerText =
+                "Something Went Wrong";
+
+
+            message.innerText =
+                messageText;
+
+
+
+            // Hide cancel button
+
+            cancelBtn.classList.add(
+                "hidden"
+            );
+
+
+
+            // OK button
+
+            confirmBtn.innerText =
+                "OK";
+
+
+            confirmBtn.className =
+                "px-6 py-3 rounded-lg " +
+                "bg-red-600 text-white " +
+                "font-semibold " +
+                "hover:bg-red-700 transition";
+
+
+
+            // Show modal
+
+            modal.classList.remove(
+                "hidden"
+            );
+
+            modal.classList.add(
+                "flex"
+            );
+
+
+
+            confirmBtn.onclick =
+                function() {
+
+
+                    modal.classList.add(
+                        "hidden"
+                    );
+
+
+                    modal.classList.remove(
+                        "flex"
+                    );
+
+                };
 
         }
 

@@ -11,6 +11,7 @@
     <title>Register - RentalCars</title>
 
     <!-- Tailwind CSS -->
+
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
@@ -25,6 +26,7 @@
 
         <div class="max-w-7xl mx-auto px-6 h-20
                     flex items-center justify-between">
+
 
             <a href="../index.html"
                class="text-2xl font-bold">
@@ -134,8 +136,7 @@
                                rounded-lg
                                focus:outline-none
                                focus:ring-2
-                               focus:ring-green-500"
-                    >
+                               focus:ring-green-500">
 
                 </div>
 
@@ -167,8 +168,7 @@
                                rounded-lg
                                focus:outline-none
                                focus:ring-2
-                               focus:ring-green-500"
-                    >
+                               focus:ring-green-500">
 
                 </div>
 
@@ -200,8 +200,7 @@
                                rounded-lg
                                focus:outline-none
                                focus:ring-2
-                               focus:ring-green-500"
-                    >
+                               focus:ring-green-500">
 
                 </div>
 
@@ -233,8 +232,7 @@
                                rounded-lg
                                focus:outline-none
                                focus:ring-2
-                               focus:ring-green-500"
-                    >
+                               focus:ring-green-500">
 
                 </div>
 
@@ -287,13 +285,257 @@
 
 
 
+    <!-- ==========================================
+         CUSTOM ALERT MODAL
+         ========================================== -->
+
+    <div id="alertModal"
+         class="fixed inset-0
+                bg-black bg-opacity-50
+                hidden
+                items-center
+                justify-center
+                z-50
+                px-4">
+
+
+        <div class="bg-white
+                    w-full
+                    max-w-md
+                    rounded-2xl
+                    shadow-2xl
+                    p-7
+                    text-center">
+
+
+            <!-- Alert Icon -->
+
+            <div id="alertIcon"
+                 class="w-16 h-16
+                        mx-auto
+                        rounded-full
+                        bg-red-100
+                        text-red-600
+                        flex
+                        items-center
+                        justify-center
+                        text-3xl
+                        mb-5">
+
+                ⚠️
+
+            </div>
+
+
+
+            <!-- Alert Title -->
+
+            <h2 id="alertTitle"
+                class="text-2xl
+                       font-bold
+                       text-gray-800">
+
+                Registration Failed
+
+            </h2>
+
+
+
+            <!-- Alert Message -->
+
+            <p id="alertMessage"
+               class="text-gray-500
+                      mt-3
+                      leading-relaxed">
+
+                Registration failed.
+
+            </p>
+
+
+
+            <!-- OK Button -->
+
+            <button
+                id="alertOkButton"
+                type="button"
+                class="mt-6
+                       px-8
+                       py-3
+                       bg-red-600
+                       hover:bg-red-700
+                       text-white
+                       rounded-lg
+                       font-semibold
+                       transition">
+
+                OK
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
     <!-- JavaScript -->
 
     <script>
 
+
         const API_URL =
             "http://127.0.0.1:8000";
 
+
+
+        // ==========================================
+        // CUSTOM ALERT FUNCTION
+        // ==========================================
+
+        function showAlert(
+            title,
+            message,
+            type = "error",
+            callback = null
+        ) {
+
+
+            const modal =
+                document.getElementById(
+                    "alertModal"
+                );
+
+
+            const icon =
+                document.getElementById(
+                    "alertIcon"
+                );
+
+
+            const alertTitle =
+                document.getElementById(
+                    "alertTitle"
+                );
+
+
+            const alertMessage =
+                document.getElementById(
+                    "alertMessage"
+                );
+
+
+            const okButton =
+                document.getElementById(
+                    "alertOkButton"
+                );
+
+
+
+            // ==========================================
+            // ERROR STYLE
+            // ==========================================
+
+            if (type === "error") {
+
+                icon.innerHTML = "⚠️";
+
+                icon.className =
+                    "w-16 h-16 mx-auto rounded-full " +
+                    "bg-red-100 text-red-600 " +
+                    "flex items-center justify-center " +
+                    "text-3xl mb-5";
+
+
+                okButton.className =
+                    "mt-6 px-8 py-3 " +
+                    "bg-red-600 hover:bg-red-700 " +
+                    "text-white rounded-lg " +
+                    "font-semibold transition";
+
+            }
+
+
+
+            // ==========================================
+            // SUCCESS STYLE
+            // ==========================================
+
+            else if (type === "success") {
+
+                icon.innerHTML = "✓";
+
+                icon.className =
+                    "w-16 h-16 mx-auto rounded-full " +
+                    "bg-green-100 text-green-600 " +
+                    "flex items-center justify-center " +
+                    "text-3xl font-bold mb-5";
+
+
+                okButton.className =
+                    "mt-6 px-8 py-3 " +
+                    "bg-green-600 hover:bg-green-700 " +
+                    "text-white rounded-lg " +
+                    "font-semibold transition";
+
+            }
+
+
+
+            // Set text
+
+            alertTitle.innerText =
+                title;
+
+
+            alertMessage.innerText =
+                message;
+
+
+
+            // Show modal
+
+            modal.classList.remove(
+                "hidden"
+            );
+
+            modal.classList.add(
+                "flex"
+            );
+
+
+
+            // OK button
+
+            okButton.onclick =
+                function () {
+
+
+                    modal.classList.add(
+                        "hidden"
+                    );
+
+
+                    modal.classList.remove(
+                        "flex"
+                    );
+
+
+                    if (callback) {
+
+                        callback();
+
+                    }
+
+                };
+
+        }
+
+
+
+        // ==========================================
+        // REGISTER FORM
+        // ==========================================
 
         document
             .getElementById("registerForm")
@@ -301,50 +543,70 @@
                 "submit",
                 async function(event) {
 
+
                     event.preventDefault();
+
 
 
                     // Get username
 
                     const username =
                         document
-                            .getElementById("username")
+                            .getElementById(
+                                "username"
+                            )
                             .value
                             .trim();
+
 
 
                     // Get email
 
                     const email =
                         document
-                            .getElementById("email")
+                            .getElementById(
+                                "email"
+                            )
                             .value
                             .trim();
+
 
 
                     // Get password
 
                     const password =
                         document
-                            .getElementById("password")
+                            .getElementById(
+                                "password"
+                            )
                             .value;
+
 
 
                     // Get confirm password
 
                     const confirmPassword =
                         document
-                            .getElementById("confirmPassword")
+                            .getElementById(
+                                "confirmPassword"
+                            )
                             .value;
 
 
 
-                    // Check password
+                    // ==========================================
+                    // CHECK PASSWORD
+                    // ==========================================
 
-                    if (password !== confirmPassword) {
+                    if (
+                        password !==
+                        confirmPassword
+                    ) {
 
-                        alert(
-                            "Passwords do not match."
+                        showAlert(
+                            "Password Error",
+                            "Passwords do not match.",
+                            "error"
                         );
 
                         return;
@@ -353,12 +615,18 @@
 
 
 
-                    // Password length
+                    // ==========================================
+                    // PASSWORD LENGTH
+                    // ==========================================
 
-                    if (password.length < 6) {
+                    if (
+                        password.length < 6
+                    ) {
 
-                        alert(
-                            "Password must be at least 6 characters."
+                        showAlert(
+                            "Password Error",
+                            "Password must be at least 6 characters.",
+                            "error"
                         );
 
                         return;
@@ -370,30 +638,42 @@
                     try {
 
 
-                        // Django Register API
+                        // ==========================================
+                        // DJANGO REGISTER API
+                        // ==========================================
 
                         const response =
                             await fetch(
+
                                 API_URL +
                                 "/api/register/",
+
                                 {
+
                                     method: "POST",
 
                                     headers: {
+
                                         "Content-Type":
                                             "application/json"
+
                                     },
 
                                     body: JSON.stringify({
 
-                                        username: username,
+                                        username:
+                                            username,
 
-                                        email: email,
+                                        email:
+                                            email,
 
-                                        password: password
+                                        password:
+                                            password
 
                                     })
+
                                 }
+
                             );
 
 
@@ -405,27 +685,42 @@
 
 
 
-                        // Registration successful
+                        // ==========================================
+                        // REGISTRATION SUCCESSFUL
+                        // ==========================================
 
                         if (response.ok) {
 
-                            alert(
-                                "Registration successful!"
+
+                            showAlert(
+
+                                "Registration Successful!",
+                                
+                                "Your RentalCars account has been created successfully.",
+
+                                "success",
+
+                                function () {
+
+                                    // Go to login page
+
+                                    window.location.href =
+                                        "login.html";
+
+                                }
+
                             );
-
-
-                            // Go to login page
-
-                            window.location.href =
-                                "login.html";
 
                         }
 
 
 
-                        // Registration failed
+                        // ==========================================
+                        // REGISTRATION FAILED
+                        // ==========================================
 
                         else {
+
 
                             console.error(
                                 "Registration Error:",
@@ -433,37 +728,65 @@
                             );
 
 
+
                             if (result.username) {
 
-                                alert(
+                                showAlert(
+
+                                    "Username Error",
+
                                     "Username: " +
-                                    result.username[0]
+                                    result.username[0],
+
+                                    "error"
+
                                 );
 
                             }
+
 
                             else if (result.email) {
 
-                                alert(
+                                showAlert(
+
+                                    "Email Error",
+
                                     "Email: " +
-                                    result.email[0]
+                                    result.email[0],
+
+                                    "error"
+
                                 );
 
                             }
+
 
                             else if (result.password) {
 
-                                alert(
+                                showAlert(
+
+                                    "Password Error",
+
                                     "Password: " +
-                                    result.password[0]
+                                    result.password[0],
+
+                                    "error"
+
                                 );
 
                             }
 
+
                             else {
 
-                                alert(
-                                    "Registration failed."
+                                showAlert(
+
+                                    "Registration Failed",
+
+                                    "Registration failed.",
+
+                                    "error"
+
                                 );
 
                             }
@@ -474,9 +797,12 @@
 
 
 
-                    // Server / network error
+                    // ==========================================
+                    // SERVER / NETWORK ERROR
+                    // ==========================================
 
                     catch (error) {
+
 
                         console.error(
                             "Registration Error:",
@@ -484,14 +810,21 @@
                         );
 
 
-                        alert(
+                        showAlert(
+
+                            "Connection Error",
+
                             "Unable to connect to Django server. " +
-                            "Please make sure Django server is running."
+                            "Please make sure Django server is running.",
+
+                            "error"
+
                         );
 
                     }
 
                 }
+
             );
 
     </script>
