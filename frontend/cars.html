@@ -255,6 +255,13 @@
 <!-- ================= JAVASCRIPT ================= -->
 
 <script>
+    const userId = localStorage.getItem("user_id");
+
+if (!userId) {
+
+    window.location.href = "./login.html";
+
+}
 
 const API_URL = "http://127.0.0.1:8000/api/cars/";
 

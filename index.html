@@ -75,7 +75,7 @@
 
                 <!-- CARS -->
 
-                <a href="./frontend/cars.html"
+                <a href="./frontend/cars.html"onclick="return checkLoginBeforeCars()"
                    class="font-semibold
                           hover:text-cyan-400
                           transition">
@@ -759,7 +759,25 @@
     </div>
 
 </footer>
+<script>
 
+function checkLoginBeforeCars() {
+
+    const userId =
+        localStorage.getItem("user_id");
+
+    if (!userId) {
+
+        window.location.href =
+            "./frontend/login.html";
+
+        return false;
+    }
+
+    return true;
+}
+
+</script>
 
 </body>
 
