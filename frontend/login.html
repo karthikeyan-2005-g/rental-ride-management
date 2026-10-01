@@ -172,6 +172,7 @@
             Don't have an account?
 
             <a href="./resiter.html"
+               id="registerLink"
                class="text-blue-600
                       font-semibold
                       hover:underline">
@@ -304,6 +305,18 @@
 
         const API_URL =
             "http://127.0.0.1:8000";
+
+        const nextPage =
+            new URLSearchParams(window.location.search).get("next");
+
+        const isBookingPage =
+            nextPage === "booking.html" ||
+            (nextPage && nextPage.startsWith("booking.html?"));
+
+        if (isBookingPage) {
+            document.getElementById("registerLink").href =
+                `./resiter.html?next=${encodeURIComponent(nextPage)}`;
+        }
 
 
 
@@ -599,10 +612,9 @@
 
                                 function () {
 
-                                    // Go to home page
-
-                                    window.location.href =
-                                        "../index.html";
+                                    window.location.href = isBookingPage
+                                        ? `./${nextPage}`
+                                        : "../index.html";
 
                                 }
 

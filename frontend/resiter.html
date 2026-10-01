@@ -708,8 +708,12 @@
 
                                     // Go to login page
 
-                                    window.location.href =
-                                        "login.html";
+                                    const nextPage =
+                                        new URLSearchParams(window.location.search).get("next");
+
+                                    window.location.href = nextPage
+                                        ? `login.html?next=${encodeURIComponent(nextPage)}`
+                                        : "login.html";
 
                                 }
 

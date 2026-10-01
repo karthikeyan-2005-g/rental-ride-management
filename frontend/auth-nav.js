@@ -13,3 +13,13 @@ document.querySelectorAll("[data-auth-control]").forEach((link) => {
         });
     }
 });
+
+if (
+    document.body.hasAttribute("data-requires-login") &&
+    !localStorage.getItem("user_id")
+) {
+    const nextPage = `booking.html${window.location.search}`;
+    const loginUrl = new URL("./login.html", window.location.href);
+    loginUrl.searchParams.set("next", nextPage);
+    window.location.replace(loginUrl.href);
+}
