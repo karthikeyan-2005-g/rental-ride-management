@@ -10,368 +10,67 @@
 
     <title>Book Car - RentalCars</title>
 
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-
-    <style>
-
-        /* ==========================================
-           MODERN ALERT
-        ========================================== */
-
-        #modernAlert {
-
-            position: fixed;
-
-            inset: 0;
-
-            background: rgba(15, 23, 42, 0.60);
-
-            backdrop-filter: blur(6px);
-
-            display: none;
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding: 20px;
-
-            z-index: 99999;
-
-        }
-
-
-        #modernAlertBox {
-
-            width: 100%;
-
-            max-width: 470px;
-
-            background: white;
-
-            border-radius: 24px;
-
-            padding: 35px 30px;
-
-            text-align: center;
-
-            position: relative;
-
-            box-shadow:
-                0 25px 70px rgba(0, 0, 0, 0.30);
-
-            animation: alertAnimation 0.25s ease-out;
-
-        }
-
-
-        @keyframes alertAnimation {
-
-            from {
-
-                opacity: 0;
-
-                transform:
-                    translateY(-25px)
-                    scale(0.94);
-
-            }
-
-            to {
-
-                opacity: 1;
-
-                transform:
-                    translateY(0)
-                    scale(1);
-
-            }
-
-        }
-
-
-        /* Error icon */
-
-        .alert-error-icon {
-
-            width: 78px;
-
-            height: 78px;
-
-            margin: 0 auto 20px;
-
-            border-radius: 50%;
-
-            background: #fee2e2;
-
-            border: 7px solid #fecaca;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            color: #dc2626;
-
-            font-size: 42px;
-
-            font-weight: 700;
-
-        }
-
-
-        /* Success icon */
-
-        .alert-success-icon {
-
-            width: 78px;
-
-            height: 78px;
-
-            margin: 0 auto 20px;
-
-            border-radius: 50%;
-
-            background: #dcfce7;
-
-            border: 7px solid #bbf7d0;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            color: #16a34a;
-
-            font-size: 42px;
-
-            font-weight: 700;
-
-        }
-
-
-        #modernAlertTitle {
-
-            font-size: 25px;
-
-            font-weight: 700;
-
-            color: #b91c1c;
-
-            margin-bottom: 10px;
-
-        }
-
-
-        #modernAlertMessage {
-
-            color: #64748b;
-
-            font-size: 16px;
-
-            line-height: 1.6;
-
-            margin-bottom: 25px;
-
-        }
-
-
-        #modernAlertButton {
-
-            background: #dc2626;
-
-            color: white;
-
-            border: none;
-
-            padding: 12px 42px;
-
-            border-radius: 10px;
-
-            font-size: 16px;
-
-            font-weight: 600;
-
-            cursor: pointer;
-
-            transition: 0.2s;
-
-        }
-
-
-        #modernAlertButton:hover {
-
-            background: #b91c1c;
-
-            transform: translateY(-1px);
-
-        }
-
-
-        #modernAlertClose {
-
-            position: absolute;
-
-            top: 15px;
-
-            right: 18px;
-
-            border: none;
-
-            background: transparent;
-
-            color: #94a3b8;
-
-            font-size: 30px;
-
-            cursor: pointer;
-
-            line-height: 1;
-
-        }
-
-
-        #modernAlertClose:hover {
-
-            color: #334155;
-
-        }
-
-
-        @media (max-width: 500px) {
-
-            #modernAlertBox {
-
-                padding: 30px 20px;
-
-            }
-
-
-            #modernAlertTitle {
-
-                font-size: 22px;
-
-            }
-
-        }
-
-    </style>
 
 </head>
 
 
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-50 text-gray-900">
 
 
-    <!-- ==========================================
-         MODERN ALERT
-    ========================================== -->
-
-    <div id="modernAlert">
-
-        <div id="modernAlertBox">
-
-            <button id="modernAlertClose">
-
-                ×
-
-            </button>
-
-
-            <div id="alertIcon"
-                 class="alert-error-icon">
-
-                !
-
-            </div>
-
-
-            <h2 id="modernAlertTitle">
-
-                Booking Failed
-
-            </h2>
-
-
-            <p id="modernAlertMessage">
-
-                This car is already booked for the selected dates.
-
-            </p>
-
-
-            <button id="modernAlertButton">
-
-                OK
-
-            </button>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- ==========================================
+    <!-- =====================================================
          NAVBAR
-    ========================================== -->
+    ====================================================== -->
 
-    <nav class="bg-white shadow-md">
+    <nav class="bg-gray-950 text-white shadow-lg">
 
-        <div class="max-w-7xl mx-auto px-6 py-4
-                    flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-6">
 
-            <a href="../index.html"
-               class="text-2xl font-bold text-blue-600">
+            <div class="h-20 flex items-center justify-between">
 
-                🚗 CarRental
-
-            </a>
-
-
-            <div class="flex gap-6 items-center">
+                <!-- Logo -->
 
                 <a href="../index.html"
-                   class="text-gray-700 hover:text-blue-600">
+                   class="text-2xl font-bold">
 
-                    Home
-
-                </a>
-
-
-                <a href="./cars.html"
-                   class="text-gray-700 hover:text-blue-600">
-
-                    Cars
+                    🚗 RentalCars
 
                 </a>
 
 
-                <a href="./my_bookings.html"
-                   class="text-gray-700 hover:text-blue-600">
+                <!-- Navigation -->
 
-                    My Bookings
+                <div class="flex gap-6">
 
-                </a>
+                    <a href="../index.html"
+                       class="hover:text-green-400">
 
+                        Home
 
-                <a href="./contact_support.html"
-                   class="text-gray-700 hover:text-blue-600">
-
-                    Contact & Support
-
-                </a>
+                    </a>
 
 
-                <a href="./login.html"
-                   class="text-gray-700 hover:text-blue-600">
+                    <a href="./cars.html"
+                       class="hover:text-green-400">
 
-                    Login
+                        Cars
 
-                </a>
+                    </a>
+
+
+                    <a href="./my_bookings.html"
+                       class="hover:text-green-400">
+
+                        My Bookings
+
+                    </a>
+                    <a href="./contact_support.html"
+                     class="hover:text-green-400 transition">
+
+                    Contact & Support</a> 
+
+                </div>
 
             </div>
 
@@ -381,63 +80,67 @@
 
 
 
-    <!-- ==========================================
-         PAGE HEADER
-    ========================================== -->
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
 
-    <section class="bg-blue-600 text-white py-10">
-
-        <div class="max-w-7xl mx-auto px-6">
-
-            <h1 class="text-4xl font-bold">
-
-                Book Your Car
-
-            </h1>
+    <main class="max-w-6xl mx-auto px-6 py-10">
 
 
-            <p class="mt-2 text-blue-100">
+        <h1 class="text-3xl font-bold mb-8">
 
-                Complete your booking details
+            Book Your Car
 
-            </p>
-
-        </div>
-
-    </section>
+        </h1>
 
 
-
-    <!-- ==========================================
-         BOOKING AREA
-    ========================================== -->
-
-    <main class="max-w-7xl mx-auto px-6 py-10">
-
-        <div class="grid grid-cols-1
-                    lg:grid-cols-3
-                    gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
 
-            <!-- ==================================
-                 CUSTOMER DETAILS
-            ================================== -->
+            <!-- =================================================
+                 BOOKING FORM
+            ================================================== -->
 
-            <div class="lg:col-span-2
-                        bg-white
-                        rounded-xl
-                        shadow-md
-                        p-8">
+            <div class="lg:col-span-2 bg-white rounded-xl shadow p-8">
 
-                <h2 class="text-2xl
-                           font-bold
-                           text-gray-800
-                           mb-6">
 
-                    Customer Details
+                <!-- Selected Car -->
 
-                </h2>
+                <div class="mb-8">
 
+                    <h2 class="text-xl font-semibold mb-4">
+
+                        Selected Car
+
+                    </h2>
+
+
+                    <div class="bg-gray-100 rounded-lg p-5">
+
+                        <h3 id="carName"
+                            class="text-2xl font-bold">
+
+                            Loading car...
+
+                        </h3>
+
+
+                        <p id="carPrice"
+                           class="text-green-600 text-xl font-semibold mt-2">
+
+                            ₹0
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     FORM
+                ================================================== -->
 
                 <form id="bookingForm">
 
@@ -446,10 +149,9 @@
 
                     <div class="mb-5">
 
-                        <label class="block
-                                      text-gray-700
-                                      font-semibold
-                                      mb-2">
+                        <label
+                            for="customerName"
+                            class="block font-medium mb-2">
 
                             Customer Name
 
@@ -459,18 +161,10 @@
                         <input
                             type="text"
                             id="customerName"
-                            name="customer_name"
-                            class="w-full
-                                   border
-                                   border-gray-300
-                                   rounded-lg
-                                   px-4
-                                   py-3
-                                   focus:outline-none
-                                   focus:ring-2
-                                   focus:ring-blue-500"
-                            placeholder="Enter your name"
-                            required>
+                            required
+                            autocomplete="name"
+                            class="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+                            placeholder="Enter your name">
 
                     </div>
 
@@ -480,10 +174,9 @@
 
                     <div class="mb-5">
 
-                        <label class="block
-                                      text-gray-700
-                                      font-semibold
-                                      mb-2">
+                        <label
+                            for="email"
+                            class="block font-medium mb-2">
 
                             Email
 
@@ -493,18 +186,10 @@
                         <input
                             type="email"
                             id="email"
-                            name="email"
-                            class="w-full
-                                   border
-                                   border-gray-300
-                                   rounded-lg
-                                   px-4
-                                   py-3
-                                   focus:outline-none
-                                   focus:ring-2
-                                   focus:ring-blue-500"
-                            placeholder="Enter your email"
-                            required>
+                            required
+                            autocomplete="email"
+                            class="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+                            placeholder="Enter your email">
 
                     </div>
 
@@ -514,10 +199,9 @@
 
                     <div class="mb-5">
 
-                        <label class="block
-                                      text-gray-700
-                                      font-semibold
-                                      mb-2">
+                        <label
+                            for="phone"
+                            class="block font-medium mb-2">
 
                             Phone Number
 
@@ -527,18 +211,12 @@
                         <input
                             type="tel"
                             id="phone"
-                            name="phone"
-                            class="w-full
-                                   border
-                                   border-gray-300
-                                   rounded-lg
-                                   px-4
-                                   py-3
-                                   focus:outline-none
-                                   focus:ring-2
-                                   focus:ring-blue-500"
-                            placeholder="Enter your phone number"
-                            required>
+                            required
+                            autocomplete="tel"
+                            pattern="[0-9]{10}"
+                            maxlength="10"
+                            class="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+                            placeholder="Enter 10-digit phone number">
 
                     </div>
 
@@ -546,21 +224,16 @@
 
                     <!-- Dates -->
 
-                    <div class="grid
-                                grid-cols-1
-                                md:grid-cols-2
-                                gap-5
-                                mb-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
 
 
-                        <!-- Pickup -->
+                        <!-- Pickup Date -->
 
                         <div>
 
-                            <label class="block
-                                          text-gray-700
-                                          font-semibold
-                                          mb-2">
+                            <label
+                                for="pickupDate"
+                                class="block font-medium mb-2">
 
                                 Pickup Date
 
@@ -570,30 +243,20 @@
                             <input
                                 type="date"
                                 id="pickupDate"
-                                name="pickup_date"
-                                class="w-full
-                                       border
-                                       border-gray-300
-                                       rounded-lg
-                                       px-4
-                                       py-3
-                                       focus:outline-none
-                                       focus:ring-2
-                                       focus:ring-blue-500"
-                                required>
+                                required
+                                class="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500">
 
                         </div>
 
 
 
-                        <!-- Return -->
+                        <!-- Return Date -->
 
                         <div>
 
-                            <label class="block
-                                          text-gray-700
-                                          font-semibold
-                                          mb-2">
+                            <label
+                                for="returnDate"
+                                class="block font-medium mb-2">
 
                                 Return Date
 
@@ -603,17 +266,8 @@
                             <input
                                 type="date"
                                 id="returnDate"
-                                name="return_date"
-                                class="w-full
-                                       border
-                                       border-gray-300
-                                       rounded-lg
-                                       px-4
-                                       py-3
-                                       focus:outline-none
-                                       focus:ring-2
-                                       focus:ring-blue-500"
-                                required>
+                                required
+                                class="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500">
 
                         </div>
 
@@ -625,10 +279,9 @@
 
                     <div class="mb-6">
 
-                        <label class="block
-                                      text-gray-700
-                                      font-semibold
-                                      mb-2">
+                        <label
+                            for="pickupLocation"
+                            class="block font-medium mb-2">
 
                             Pickup Location
 
@@ -637,21 +290,20 @@
 
                         <select
                             id="pickupLocation"
-                            name="pickup_location"
-                            class="w-full
-                                   border
-                                   border-gray-300
-                                   rounded-lg
-                                   px-4
-                                   py-3
-                                   focus:outline-none
-                                   focus:ring-2
-                                   focus:ring-blue-500"
-                            required>
+                            required
+                            class="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+
 
                             <option value="">
 
-                                Select location
+                                Select Location
+
+                            </option>
+
+
+                            <option value="Chennai">
+
+                                Chennai
 
                             </option>
 
@@ -670,18 +322,19 @@
                             </option>
 
 
-                            <option value="Chennai">
+                            <option value="Trichy">
 
-                                Chennai
+                                Trichy
+
+                            </option>
+
+
+                            <option value="Salem">
+
+                                Salem
 
                             </option>
 
-
-                            <option value="Bangalore">
-
-                                Bangalore
-
-                            </option>
 
                         </select>
 
@@ -689,20 +342,12 @@
 
 
 
-                    <!-- Book Button -->
+                    <!-- Confirm Booking Button -->
 
                     <button
                         type="submit"
-                        id="bookButton"
-                        class="w-full
-                               bg-green-600
-                               text-white
-                               py-4
-                               rounded-lg
-                               font-semibold
-                               text-lg
-                               hover:bg-green-700
-                               transition">
+                        id="confirmButton"
+                        class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 rounded-lg transition">
 
                         Confirm Booking
 
@@ -715,115 +360,107 @@
 
 
 
-            <!-- ==================================
+            <!-- =================================================
                  BOOKING SUMMARY
-            ================================== -->
+            ================================================== -->
 
-            <div class="bg-white
-                        rounded-xl
-                        shadow-md
-                        p-8
-                        h-fit">
+            <div class="bg-white rounded-xl shadow p-8 h-fit">
 
-                <h2 class="text-2xl
-                           font-bold
-                           text-gray-800
-                           mb-6">
+
+                <h2 class="text-xl font-bold mb-6">
 
                     Booking Summary
 
                 </h2>
 
 
-                <div class="border-b pb-5 mb-5">
 
-                    <p class="text-gray-500 text-sm">
+                <!-- Car -->
 
-                        Selected Car
+                <div class="flex justify-between border-b pb-4 mb-4">
 
-                    </p>
+                    <span class="text-gray-600">
+
+                        Car
+
+                    </span>
 
 
-                    <h3 id="carName"
-                        class="text-xl
-                               font-bold
-                               text-gray-800
-                               mt-1">
+                    <span id="summaryCar"
+                          class="font-semibold text-right">
 
-                        Toyota Camry
+                        Loading...
 
-                    </h3>
+                    </span>
+
+                </div>
+
+
+
+                <!-- Price -->
+
+                <div class="flex justify-between border-b pb-4 mb-4">
+
+                    <span class="text-gray-600">
+
+                        Price / Day
+
+                    </span>
+
+
+                    <span id="summaryPrice"
+                          class="font-semibold">
+
+                        ₹0
+
+                    </span>
 
                 </div>
 
 
 
-                <div class="space-y-4">
+                <!-- Rental Days -->
+
+                <div class="flex justify-between border-b pb-4 mb-4">
+
+                    <span class="text-gray-600">
+
+                        Rental Days
+
+                    </span>
 
 
-                    <div class="flex justify-between">
+                    <span id="totalDays"
+                          class="font-semibold">
 
-                        <span class="text-gray-500">
+                        0
 
-                            Price / Day
-
-                        </span>
-
-
-                        <span id="carPrice"
-                              class="font-semibold">
-
-                            ₹2,500
-
-                        </span>
-
-                    </div>
-
-
-
-                    <div class="flex justify-between">
-
-                        <span class="text-gray-500">
-
-                            Rental Days
-
-                        </span>
-
-
-                        <span id="rentalDays"
-                              class="font-semibold">
-
-                            0
-
-                        </span>
-
-                    </div>
-
-
-
-                    <div class="border-t pt-4
-                                flex justify-between">
-
-                        <span class="font-bold
-                                     text-gray-800">
-
-                            Total Amount
-
-                        </span>
-
-
-                        <span id="totalAmount"
-                              class="font-bold
-                                     text-blue-600
-                                     text-xl">
-
-                            ₹0
-
-                        </span>
-
-                    </div>
+                    </span>
 
                 </div>
+
+
+
+                <!-- Total Amount -->
+
+                <div class="flex justify-between">
+
+                    <span class="text-lg font-bold">
+
+                        Total Amount
+
+                    </span>
+
+
+                    <span id="totalAmount"
+                          class="text-xl font-bold text-green-600">
+
+                        ₹0
+
+                    </span>
+
+                </div>
+
 
             </div>
 
@@ -833,245 +470,97 @@
 
 
 
-    <!-- ==========================================
-         FOOTER
-    ========================================== -->
+    <!-- =====================================================
+         SUCCESS MODAL
+    ====================================================== -->
 
-    <footer class="bg-gray-900
-                   text-white
-                   py-6
-                   mt-10">
+    <div id="successMessage"
+         class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-4">
 
-        <div class="max-w-7xl
-                    mx-auto
-                    px-6
-                    text-center">
 
-            <p>
+        <div class="bg-white rounded-xl shadow-xl p-8 max-w-md w-full text-center">
 
-                © 2026 RentalCars.
-                All rights reserved.
+
+            <!-- Success Icon -->
+
+            <div class="text-5xl mb-4">
+
+                ✅
+
+            </div>
+
+
+            <!-- Title -->
+
+            <h2 class="text-2xl font-bold mb-3">
+
+                Booking Confirmed!
+
+            </h2>
+
+
+            <!-- Message -->
+
+            <p id="successCar"
+               class="text-gray-600 mb-6">
 
             </p>
 
+
+            <!-- View Bookings -->
+
+            <button
+                onclick="goToBookings()"
+                class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold">
+
+                View My Bookings
+
+            </button>
+
+
+            <!-- Back to Cars -->
+
+            <button
+                onclick="goToCars()"
+                class="w-full mt-3 border border-gray-300 hover:bg-gray-100 py-3 rounded-lg font-semibold">
+
+                Back to Cars
+
+            </button>
+
         </div>
 
-    </footer>
+    </div>
 
 
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
 
     <script>
 
-        /* ==========================================
-           MODERN ALERT ONLY
-        ========================================== */
 
-        const modernAlert =
-            document.getElementById("modernAlert");
-
-        const modernAlertTitle =
-            document.getElementById("modernAlertTitle");
-
-        const modernAlertMessage =
-            document.getElementById("modernAlertMessage");
-
-        const modernAlertButton =
-            document.getElementById("modernAlertButton");
-
-        const modernAlertClose =
-            document.getElementById("modernAlertClose");
-
-        const alertIcon =
-            document.getElementById("alertIcon");
-
-
-        function closeModernAlert() {
-
-            modernAlert.style.display = "none";
-
-        }
-
-
-        function showModernAlert(message) {
-
-            let cleanMessage = message;
-
-            let isSuccess = false;
-
-
-            /* Success alert */
-
-            if (
-                message &&
-                (
-                    message.toLowerCase().includes(
-                        "successfully"
-                    )
-                    ||
-                    message.toLowerCase().includes(
-                        "success"
-                    )
-                )
-            ) {
-
-                isSuccess = true;
-
-            }
-
-
-            /* Extract Django JSON error */
-
-            try {
-
-                if (
-                    typeof message === "string" &&
-                    message.includes("{")
-                ) {
-
-                    const jsonStart =
-                        message.indexOf("{");
-
-                    const jsonText =
-                        message.substring(jsonStart);
-
-                    const errorData =
-                        JSON.parse(jsonText);
-
-
-                    if (errorData.error) {
-
-                        cleanMessage =
-                            errorData.error;
-
-                    }
-
-                    else if (errorData.detail) {
-
-                        cleanMessage =
-                            errorData.detail;
-
-                    }
-
-                }
-
-            }
-
-            catch (error) {
-
-                console.log(
-                    "Alert parsing:",
-                    error
-                );
-
-            }
-
-
-            if (isSuccess) {
-
-                modernAlertTitle.textContent =
-                    "Booking Successful";
-
-                modernAlertTitle.style.color =
-                    "#166534";
-
-                modernAlertMessage.textContent =
-                    cleanMessage;
-
-                alertIcon.className =
-                    "alert-success-icon";
-
-                alertIcon.textContent =
-                    "✓";
-
-                modernAlertButton.style.background =
-                    "#16a34a";
-
-            }
-
-            else {
-
-                modernAlertTitle.textContent =
-                    "Booking Failed";
-
-                modernAlertTitle.style.color =
-                    "#b91c1c";
-
-                modernAlertMessage.textContent =
-                    cleanMessage;
-
-                alertIcon.className =
-                    "alert-error-icon";
-
-                alertIcon.textContent =
-                    "!";
-
-                modernAlertButton.style.background =
-                    "#dc2626";
-
-            }
-
-
-            modernAlert.style.display =
-                "flex";
-
-        }
-
-
-        modernAlertButton.addEventListener(
-            "click",
-            closeModernAlert
-        );
-
-
-        modernAlertClose.addEventListener(
-            "click",
-            closeModernAlert
-        );
-
-
-        modernAlert.addEventListener(
-            "click",
-            function(event) {
-
-                if (
-                    event.target === modernAlert
-                ) {
-
-                    closeModernAlert();
-
-                }
-
-            }
-        );
-
-
-        /*
-         * This changes only the appearance
-         * of alert().
-         *
-         * Existing alert("...") calls
-         * will automatically use this popup.
-         */
-
-        window.alert = function(message) {
-
-            showModernAlert(message);
-
-        };
-
-
-
-        // ==========================================
-        // DJANGO BACKEND
-        // ==========================================
+        // =====================================================
+        // DJANGO API URL
+        // =====================================================
 
         const API_URL =
             "http://127.0.0.1:8000";
 
 
-        // ==========================================
-        // URL PARAMETERS
-        // ==========================================
+        const CARS_API =
+            API_URL + "/api/cars/";
+
+
+        const BOOKINGS_API =
+            API_URL + "/api/bookings/";
+
+
+
+        // =====================================================
+        // GET CAR ID FROM URL
+        // =====================================================
 
         const urlParams =
             new URLSearchParams(
@@ -1083,89 +572,288 @@
             urlParams.get("car_id");
 
 
-        const carNameParam =
-            urlParams.get("car");
 
-
-        const priceParam =
-            urlParams.get("price");
-
-
-
-        // ==========================================
-        // DISPLAY CAR INFORMATION
-        // ==========================================
+        // =====================================================
+        // GET HTML ELEMENTS
+        // =====================================================
 
         const carNameElement =
             document.getElementById("carName");
+
 
         const carPriceElement =
             document.getElementById("carPrice");
 
 
-        if (carNameParam) {
+        const summaryCar =
+            document.getElementById("summaryCar");
 
-            carNameElement.textContent =
-                decodeURIComponent(
-                    carNameParam
+
+        const summaryPrice =
+            document.getElementById("summaryPrice");
+
+
+        const pickupDate =
+            document.getElementById("pickupDate");
+
+
+        const returnDate =
+            document.getElementById("returnDate");
+
+
+        const totalDays =
+            document.getElementById("totalDays");
+
+
+        const totalAmount =
+            document.getElementById("totalAmount");
+
+
+        const confirmButton =
+            document.getElementById("confirmButton");
+
+
+
+        // =====================================================
+        // CAR VARIABLES
+        // =====================================================
+
+        let selectedCar = null;
+
+        let carName = "";
+
+        let carPrice = 0;
+
+
+
+        // =====================================================
+        // LOAD CAR DETAILS
+        // =====================================================
+
+        async function loadCarDetails() {
+
+
+            if (!carId) {
+
+                carNameElement.innerText =
+                    "Car not selected";
+
+                summaryCar.innerText =
+                    "No car selected";
+
+                alert(
+                    "Car ID missing. Please select a car again."
                 );
+
+                return;
+
+            }
+
+
+            try {
+
+
+                // Get all cars from Django
+
+                const response =
+                    await fetch(CARS_API);
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Failed to load cars"
+                    );
+
+                }
+
+
+                const cars =
+                    await response.json();
+
+
+
+                // Find selected car
+
+                selectedCar =
+                    cars.find(
+                        function(car) {
+
+                            return String(car.id) ===
+                                   String(carId);
+
+                        }
+                    );
+
+
+
+                // Car not found
+
+                if (!selectedCar) {
+
+                    carNameElement.innerText =
+                        "Car not found";
+
+                    summaryCar.innerText =
+                        "Car not found";
+
+                    alert(
+                        "Selected car was not found."
+                    );
+
+                    return;
+
+                }
+
+
+
+                // Get car details
+
+                carName =
+                    selectedCar.name;
+
+
+                carPrice =
+                    Number(
+                        selectedCar.price_per_day
+                    );
+
+
+
+                // Display car name
+
+                carNameElement.innerText =
+                    carName;
+
+
+                summaryCar.innerText =
+                    carName;
+
+
+
+                // Display price
+
+                carPriceElement.innerText =
+                    "₹" +
+                    carPrice.toLocaleString("en-IN");
+
+
+                summaryPrice.innerText =
+                    "₹" +
+                    carPrice.toLocaleString("en-IN");
+
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Car Loading Error:",
+                    error
+                );
+
+
+                carNameElement.innerText =
+                    "Unable to load car";
+
+
+                summaryCar.innerText =
+                    "Error";
+
+
+                alert(
+                    "Cannot connect to Django backend. Please start Django server."
+                );
+
+            }
 
         }
 
 
-        let price =
-            Number(priceParam || 2500);
 
+        // Load selected car
 
-        carPriceElement.textContent =
-            "₹" +
-            price.toLocaleString("en-IN");
+        loadCarDetails();
 
 
 
-        // ==========================================
-        // RENTAL DAYS
-        // ==========================================
+        // =====================================================
+        // MINIMUM DATE
+        // =====================================================
 
-        const pickupDate =
-            document.getElementById(
-                "pickupDate"
-            );
-
-        const returnDate =
-            document.getElementById(
-                "returnDate"
-            );
+        const today =
+            new Date()
+                .toISOString()
+                .split("T")[0];
 
 
-        const rentalDays =
-            document.getElementById(
-                "rentalDays"
-            );
+        pickupDate.min =
+            today;
 
 
-        const totalAmount =
-            document.getElementById(
-                "totalAmount"
-            );
+        returnDate.min =
+            today;
 
+
+
+        // =====================================================
+        // PICKUP DATE CHANGE
+        // =====================================================
+
+        pickupDate.addEventListener(
+            "change",
+            function () {
+
+                returnDate.min =
+                    pickupDate.value;
+
+                calculateTotal();
+
+            }
+        );
+
+
+
+        // =====================================================
+        // RETURN DATE CHANGE
+        // =====================================================
+
+        returnDate.addEventListener(
+            "change",
+            function () {
+
+                calculateTotal();
+
+            }
+        );
+
+
+
+        // =====================================================
+        // CALCULATE TOTAL
+        // =====================================================
 
         function calculateTotal() {
+
 
             if (
                 !pickupDate.value ||
                 !returnDate.value
             ) {
 
-                rentalDays.textContent =
+                totalDays.innerText =
                     "0";
 
-                totalAmount.textContent =
+
+                totalAmount.innerText =
                     "₹0";
+
 
                 return;
 
             }
+
 
 
             const pickup =
@@ -1174,15 +862,16 @@
                 );
 
 
-            const returnDateValue =
+            const returnDay =
                 new Date(
                     returnDate.value
                 );
 
 
+
             const difference =
-                returnDateValue -
-                pickup;
+                returnDay - pickup;
+
 
 
             const days =
@@ -1192,274 +881,448 @@
                 );
 
 
-            if (days <= 0) {
 
-                rentalDays.textContent =
-                    "0";
+            if (days > 0) {
 
-                totalAmount.textContent =
-                    "₹0";
+                totalDays.innerText =
+                    days;
 
-                return;
+
+                const total =
+                    days * carPrice;
+
+
+                totalAmount.innerText =
+                    "₹" +
+                    total.toLocaleString("en-IN");
 
             }
 
 
-            rentalDays.textContent =
-                days;
+            else {
+
+                totalDays.innerText =
+                    "0";
 
 
-            const total =
-                days * price;
+                totalAmount.innerText =
+                    "₹0";
 
-
-            totalAmount.textContent =
-                "₹" +
-                total.toLocaleString(
-                    "en-IN"
-                );
+            }
 
         }
 
 
-        pickupDate.addEventListener(
-            "change",
-            calculateTotal
-        );
+
+        // =====================================================
+        // BOOKING FORM SUBMIT
+        // =====================================================
+
+        document
+            .getElementById("bookingForm")
+            .addEventListener(
+                "submit",
+                async function (event) {
 
 
-        returnDate.addEventListener(
-            "change",
-            calculateTotal
-        );
+                    event.preventDefault();
 
 
 
-        // ==========================================
-        // BOOKING FORM
-        // ==========================================
+                    // =================================================
+                    // CHECK CAR
+                    // =================================================
 
-        const bookingForm =
-            document.getElementById(
-                "bookingForm"
+                    if (!selectedCar) {
+
+                        alert(
+                            "Car details are not loaded yet."
+                        );
+
+                        return;
+
+                    }
+
+
+
+                    // =================================================
+                    // GET USER ID
+                    // =================================================
+
+                    const userId =
+                        localStorage.getItem(
+                            "user_id"
+                        );
+
+
+
+                    // User not logged in
+
+                    if (!userId) {
+
+                        alert(
+                            "Please login before booking."
+                        );
+
+
+                        window.location.href =
+                            "./login.html";
+
+
+                        return;
+
+                    }
+
+
+
+                    // =================================================
+                    // GET FORM VALUES
+                    // =================================================
+
+                    const customerName =
+                        document
+                            .getElementById(
+                                "customerName"
+                            )
+                            .value
+                            .trim();
+
+
+                    const email =
+                        document
+                            .getElementById(
+                                "email"
+                            )
+                            .value
+                            .trim();
+
+
+                    const phone =
+                        document
+                            .getElementById(
+                                "phone"
+                            )
+                            .value
+                            .trim();
+
+
+                    const pickupLocation =
+                        document
+                            .getElementById(
+                                "pickupLocation"
+                            )
+                            .value;
+
+
+
+                    // =================================================
+                    // VALIDATE PHONE
+                    // =================================================
+
+                    if (
+                        !/^[0-9]{10}$/.test(phone)
+                    ) {
+
+                        alert(
+                            "Please enter a valid 10-digit phone number."
+                        );
+
+                        return;
+
+                    }
+
+
+
+                    // =================================================
+                    // VALIDATE DATES
+                    // =================================================
+
+                    if (
+                        !pickupDate.value ||
+                        !returnDate.value
+                    ) {
+
+                        alert(
+                            "Please select pickup and return dates."
+                        );
+
+                        return;
+
+                    }
+
+
+
+                    const pickup =
+                        new Date(
+                            pickupDate.value
+                        );
+
+
+                    const returnDay =
+                        new Date(
+                            returnDate.value
+                        );
+
+
+
+                    if (
+                        returnDay <= pickup
+                    ) {
+
+                        alert(
+                            "Return date must be after pickup date."
+                        );
+
+                        return;
+
+                    }
+
+
+
+                    // =================================================
+                    // CALCULATE RENTAL DAYS
+                    // =================================================
+
+                    const difference =
+                        returnDay - pickup;
+
+
+                    const days =
+                        Math.ceil(
+                            difference /
+                            (1000 * 60 * 60 * 24)
+                        );
+
+
+
+                    // =================================================
+                    // CALCULATE TOTAL
+                    // =================================================
+
+                    const totalPrice =
+                        days * carPrice;
+
+
+
+                    // =================================================
+                    // DJANGO BOOKING DATA
+                    // =================================================
+
+                    const bookingData = {
+
+                        user_id:
+                            Number(userId),
+
+                        car:
+                            Number(carId),
+
+                        customer_name:
+                            customerName,
+
+                        email:
+                            email,
+
+                        phone:
+                            phone,
+
+                        pickup_location:
+                            pickupLocation,
+
+                        pickup_date:
+                            pickupDate.value,
+
+                        return_date:
+                            returnDate.value,
+
+                        total_price:
+                            totalPrice.toFixed(2),
+
+                        status:
+                            "Confirmed"
+
+                    };
+
+
+
+                    // Console check
+
+                    console.log(
+                        "Django Booking Data:",
+                        bookingData
+                    );
+
+
+
+                    // =================================================
+                    // DISABLE BUTTON
+                    // =================================================
+
+                    confirmButton.disabled =
+                        true;
+
+
+                    confirmButton.innerText =
+                        "Processing...";
+
+
+
+                    // =================================================
+                    // SEND TO DJANGO
+                    // =================================================
+
+                    try {
+
+
+                        const response =
+                            await fetch(
+                                BOOKINGS_API,
+                                {
+
+                                    method: "POST",
+
+                                    headers: {
+
+                                        "Content-Type":
+                                            "application/json"
+
+                                    },
+
+                                    body:
+                                        JSON.stringify(
+                                            bookingData
+                                        )
+
+                                }
+                            );
+
+
+
+                        const result =
+                            await response.json();
+
+
+
+                        console.log(
+                            "Django Booking Response:",
+                            result
+                        );
+
+
+
+                        // =================================================
+                        // SUCCESS
+                        // =================================================
+
+                        if (response.ok) {
+
+
+                            document
+                                .getElementById(
+                                    "successCar"
+                                )
+                                .innerText =
+                                    carName +
+                                    " - Booking Confirmed";
+
+
+                            document
+                                .getElementById(
+                                    "successMessage"
+                                )
+                                .classList
+                                .remove(
+                                    "hidden"
+                                );
+
+
+                        }
+
+
+                        // =================================================
+                        // ERROR
+                        // =================================================
+
+                        else {
+
+
+                            console.error(
+                                "Booking failed:",
+                                result
+                            );
+
+
+                            alert(
+                                "Booking failed: " +
+                                JSON.stringify(result)
+                            );
+
+
+                            confirmButton.disabled =
+                                false;
+
+
+                            confirmButton.innerText =
+                                "Confirm Booking";
+
+                        }
+
+                    }
+
+
+                    catch (error) {
+
+
+                        console.error(
+                            "Booking Error:",
+                            error
+                        );
+
+
+                        alert(
+                            "Cannot connect to Django backend. Please start Django server."
+                        );
+
+
+                        confirmButton.disabled =
+                            false;
+
+
+                        confirmButton.innerText =
+                            "Confirm Booking";
+
+                    }
+
+                }
             );
 
 
-        bookingForm.addEventListener(
-            "submit",
-            async function(event) {
 
-                event.preventDefault();
+        // =====================================================
+        // GO TO CARS
+        // =====================================================
 
+        function goToCars() {
 
-                const bookButton =
-                    document.getElementById(
-                        "bookButton"
-                    );
+            window.location.href =
+                "cars.html";
 
+        }
 
-                if (
-                    !pickupDate.value ||
-                    !returnDate.value
-                ) {
 
-                    alert(
-                        "Please select pickup and return dates."
-                    );
 
-                    return;
+        // =====================================================
+        // GO TO MY BOOKINGS
+        // =====================================================
 
-                }
+        function goToBookings() {
 
+            window.location.href =
+                "my_bookings.html";
 
-                if (
-                    new Date(returnDate.value) <=
-                    new Date(pickupDate.value)
-                ) {
+        }
 
-                    alert(
-                        "Return date must be after pickup date."
-                    );
-
-                    return;
-
-                }
-
-
-                const userId =
-                    localStorage.getItem(
-                        "user_id"
-                    );
-
-
-                if (!userId) {
-
-                    alert(
-                        "Please login before booking a car."
-                    );
-
-                    return;
-
-                }
-
-
-                const customerName =
-                    document.getElementById(
-                        "customerName"
-                    ).value;
-
-
-                const email =
-                    document.getElementById(
-                        "email"
-                    ).value;
-
-
-                const phone =
-                    document.getElementById(
-                        "phone"
-                    ).value;
-
-
-                const pickupLocation =
-                    document.getElementById(
-                        "pickupLocation"
-                    ).value;
-
-
-                const days =
-                    Number(
-                        rentalDays.textContent
-                    );
-
-
-                const total =
-                    days * price;
-
-
-                bookButton.disabled =
-                    true;
-
-
-                bookButton.textContent =
-                    "Processing...";
-
-
-                try {
-
-                    const response =
-                        await fetch(
-                            API_URL +
-                            "/api/bookings/",
-                            {
-
-                                method: "POST",
-
-                                headers: {
-
-                                    "Content-Type":
-                                        "application/json"
-
-                                },
-
-                                body: JSON.stringify({
-
-                                    user: Number(userId),
-
-                                    car: Number(carId),
-
-                                    customer_name:
-                                        customerName,
-
-                                    email:
-                                        email,
-
-                                    phone:
-                                        phone,
-
-                                    pickup_date:
-                                        pickupDate.value,
-
-                                    return_date:
-                                        returnDate.value,
-
-                                    pickup_location:
-                                        pickupLocation,
-
-                                    total_price:
-                                        total
-
-                                })
-
-                            }
-                        );
-
-
-                    const result =
-                        await response.json();
-
-
-                    if (response.ok) {
-
-                        alert(
-                            "Booking completed successfully!"
-                        );
-
-
-                        setTimeout(
-                            function() {
-
-                                window.location.href =
-                                    "./my_bookings.html";
-
-                            },
-                            1000
-                        );
-
-                    }
-
-                    else {
-
-                        alert(
-                            "Booking failed: " +
-                            JSON.stringify(result)
-                        );
-
-                    }
-
-                }
-
-                catch (error) {
-
-                    console.error(
-                        "Booking Error:",
-                        error
-                    );
-
-
-                    alert(
-                        "Unable to connect to Django backend."
-                    );
-
-                }
-
-
-                finally {
-
-                    bookButton.disabled =
-                        false;
-
-
-                    bookButton.textContent =
-                        "Confirm Booking";
-
-                }
-
-            }
-        );
 
     </script>
-
 
 </body>
 
