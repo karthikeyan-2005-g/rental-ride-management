@@ -49,9 +49,9 @@
                     Contact & Support</a> 
 
                 <a href="./login.html"
-                   class="bg-green-500 hover:bg-green-600
-                          px-5 py-2.5 rounded-lg
-                          font-semibold">
+                   data-auth-control
+                   data-login-url="./login.html"
+                   class="bg-green-500 hover:bg-green-600 px-5 py-2.5 rounded-lg font-semibold">
                     Login
                 </a>
 
@@ -62,6 +62,8 @@
     </div>
 
 </nav>
+
+<script src="./auth-nav.js"></script>
 
 
 <!-- ================= HEADER ================= -->
@@ -255,13 +257,7 @@
 <!-- ================= JAVASCRIPT ================= -->
 
 <script>
-    const userId = localStorage.getItem("user_id");
-
-if (!userId) {
-
-    window.location.href = "./login.html";
-
-}
+const userId = localStorage.getItem("user_id");
 
 const API_URL = "http://127.0.0.1:8000/api/cars/";
 
@@ -449,7 +445,9 @@ function displayCars(cars) {
                     <!-- BOOKING -->
 
                     <a
-                        href="booking.html?car_id=${car.id}&car=${encodeURIComponent(car.name)}&price=${car.price_per_day}"
+                        href="${userId
+                            ? `booking.html?car_id=${car.id}&car=${encodeURIComponent(car.name)}&price=${car.price_per_day}`
+                            : `login.html?next=${encodeURIComponent(`booking.html?car_id=${car.id}&car=${encodeURIComponent(car.name)}&price=${car.price_per_day}`)}`}"
                         class="
                             bg-blue-600
                             hover:bg-blue-700

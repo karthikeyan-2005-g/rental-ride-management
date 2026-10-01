@@ -16,7 +16,7 @@
 </head>
 
 
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-50 text-gray-900" data-requires-login>
 
 
     <!-- =====================================================
@@ -70,6 +70,13 @@
 
                     Contact & Support</a> 
 
+                    <a href="./login.html"
+                       data-auth-control
+                       data-login-url="./login.html"
+                       class="hover:text-green-400">
+                        Login
+                    </a>
+
                 </div>
 
             </div>
@@ -78,6 +85,7 @@
 
     </nav>
 
+    <script src="./auth-nav.js"></script>
 
 
     <!-- =====================================================

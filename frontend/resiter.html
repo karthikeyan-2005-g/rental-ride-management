@@ -55,6 +55,8 @@
 
 
                 <a href="./login.html"
+                   data-auth-control
+                   data-login-url="./login.html"
                    class="hover:text-green-400">
 
                     Login
@@ -66,6 +68,8 @@
         </div>
 
     </nav>
+
+    <script src="./auth-nav.js"></script>
 
 
 
@@ -704,8 +708,12 @@
 
                                     // Go to login page
 
-                                    window.location.href =
-                                        "login.html";
+                                    const nextPage =
+                                        new URLSearchParams(window.location.search).get("next");
+
+                                    window.location.href = nextPage
+                                        ? `login.html?next=${encodeURIComponent(nextPage)}`
+                                        : "login.html";
 
                                 }
 
