@@ -50,3 +50,27 @@ class BookingSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop('user_id', None)
         return super().create(validated_data)
+
+
+class BookingUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = [
+            'customer_name',
+            'email',
+            'phone',
+            'pickup_location',
+            'pickup_date',
+            'return_date',
+        ]
+
+    def validate(self, attrs):
+        pickup_date = attrs.get('pickup_date', self.instance.pickup_date)
+        return_date = attrs.get('return_date', self.instance.return_date)
+
+        if return_date <= pickup_date:
+            raise serializers.ValidationError(
+                {'return_date': 'Return date must be after pickup date.'}
+            )
+
+        return attrs

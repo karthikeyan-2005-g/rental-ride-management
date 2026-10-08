@@ -11,7 +11,8 @@ from .serializers import (
     CarSerializer,
     RegisterSerializer,
     LoginSerializer,
-    BookingSerializer
+    BookingSerializer,
+    BookingUpdateSerializer,
 )
 
 
@@ -61,7 +62,6 @@ class BookingView(generics.CreateAPIView):
         car_id = request.data.get('car')
         pickup_date = request.data.get('pickup_date')
         return_date = request.data.get('return_date')
-        pickup_location = request.data.get('pickup_location')
 
         # Check user
         if not user_id:
@@ -92,7 +92,6 @@ class BookingView(generics.CreateAPIView):
         # Check whether the car is already booked
         overlapping_booking = Booking.objects.filter(
             car_id=car_id,
-            pickup_location=pickup_location,
             status='Confirmed',
             pickup_date__lte=return_date,
             return_date__gte=pickup_date
@@ -136,6 +135,77 @@ class CancelBookingView(generics.DestroyAPIView):
             },
             status=status.HTTP_200_OK
         )
+
+
+class UpdateBookingView(generics.UpdateAPIView):
+    queryset = Booking.objects.select_related('car')
+    serializer_class = BookingUpdateSerializer
+
+    def update(self, request, *args, **kwargs):
+        booking = self.get_object()
+
+        try:
+            user_id = int(request.data.get('user_id'))
+        except (TypeError, ValueError):
+            return Response(
+                {'error': 'user_id is required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if booking.user_id != user_id:
+            return Response(
+                {'error': 'You can only edit your own bookings.'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        if booking.status != 'Confirmed':
+            return Response(
+                {'error': 'Only confirmed bookings can be edited.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        data = request.data.copy()
+        data.pop('user_id', None)
+        serializer = self.get_serializer(
+            booking,
+            data=data,
+            partial=True
+        )
+        serializer.is_valid(raise_exception=True)
+
+        pickup_date = serializer.validated_data.get(
+            'pickup_date',
+            booking.pickup_date
+        )
+        return_date = serializer.validated_data.get(
+            'return_date',
+            booking.return_date
+        )
+        overlapping_booking = Booking.objects.filter(
+            car_id=booking.car_id,
+            status='Confirmed',
+            pickup_date__lte=return_date,
+            return_date__gte=pickup_date
+        ).exclude(pk=booking.pk).exists()
+
+        if overlapping_booking:
+            return Response(
+                {
+                    'error': (
+                        'This car is already booked for the selected dates.'
+                    )
+                },
+                status=status.HTTP_409_CONFLICT
+            )
+
+        total_days = (return_date - pickup_date).days
+        serializer.save(
+            total_price=booking.car.price_per_day * total_days
+        )
+
+        return Response(serializer.data)
+
+
 class UserBookingsView(generics.ListAPIView):
     serializer_class = BookingSerializer
 
