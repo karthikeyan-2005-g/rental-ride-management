@@ -254,18 +254,21 @@
                 );
 
 
-                const result = await response.json();
+                const result = await response.json().catch(function() {
+                    return {};
+                });
 
                 loadingMessage.remove();
 
-
                 const aiMessage = document.createElement("div");
 
-                aiMessage.className =
-                    "bg-gray-200 rounded-lg p-3 mb-3";
+                aiMessage.className = response.ok
+                    ? "bg-gray-200 rounded-lg p-3 mb-3"
+                    : "bg-red-100 text-red-800 rounded-lg p-3 mb-3";
 
-                aiMessage.textContent =
-                    result.reply || "Sorry, I could not answer that.";
+                aiMessage.textContent = response.ok
+                    ? result.reply || "Sorry, I could not answer that."
+                    : result.error || "AI support is currently unavailable.";
 
                 chatBox.appendChild(aiMessage);
 
@@ -273,7 +276,7 @@
             } catch (error) {
 
                 loadingMessage.textContent =
-                    "Unable to connect to AI support.";
+                    "Unable to connect to the Django API. Make sure the backend is running at http://127.0.0.1:8000.";
 
                 console.error(error);
 

@@ -1,9 +1,10 @@
 from rest_framework import viewsets, generics, status
 from rest_framework.response import Response
+from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.db.models import Q
 from rest_framework.decorators import api_view
+import logging
 import requests
 
 from .models import Car, Booking
@@ -14,6 +15,8 @@ from .serializers import (
     BookingSerializer,
     BookingUpdateSerializer,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class CarViewSet(viewsets.ModelViewSet):
@@ -221,19 +224,87 @@ class UserBookingsView(generics.ListAPIView):
 def chatbot(request):
     user_message = request.data.get('message')
 
-    response = requests.post(
-        'http://localhost:11434/api/generate',
-        json={
-            'model': 'llama3.2:3b',
-            'prompt': user_message,
-            'stream': False
-        }
-    )
+    if not isinstance(user_message, str) or not user_message.strip():
+        return Response(
+            {'error': 'Please enter a message.'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
-    result = response.json()
+    try:
+        response = requests.post(
+            'http://localhost:11434/api/generate',
+            json={
+                'model': settings.OLLAMA_MODEL,
+                'prompt': user_message.strip(),
+                'stream': False
+            },
+            timeout=(3.05, 90)
+        )
+        response.raise_for_status()
+        result = response.json()
+    except requests.HTTPError as exc:
+        logger.error(
+            'Ollama returned HTTP %s while generating a reply: %s',
+            exc.response.status_code if exc.response else 'unknown',
+            exc.response.text[:1000] if exc.response else str(exc)
+        )
+        return Response(
+            {
+                'error': (
+                    f'Ollama could not generate a reply using '
+                    f'{settings.OLLAMA_MODEL}. Check Ollama for model '
+                    'loading errors; the model may need more available '
+                    'memory. Try a smaller model if needed.'
+                )
+            },
+            status=status.HTTP_503_SERVICE_UNAVAILABLE
+        )
+    except requests.Timeout:
+        logger.warning('Ollama chatbot request timed out')
+        return Response(
+            {
+                'error': (
+                    'AI support timed out. Check that Ollama is running '
+                    f'and the {settings.OLLAMA_MODEL} model can load with '
+                    'available memory.'
+                )
+            },
+            status=status.HTTP_503_SERVICE_UNAVAILABLE
+        )
+    except requests.RequestException:
+        logger.exception('Ollama chatbot request failed')
+        return Response(
+            {
+                'error': (
+                    'AI support is unavailable. Check that Ollama is running '
+                    'at localhost:11434 and that '
+                    f'{settings.OLLAMA_MODEL} is installed.'
+                )
+            },
+            status=status.HTTP_503_SERVICE_UNAVAILABLE
+        )
+    except ValueError:
+        logger.exception('Ollama returned invalid JSON')
+        return Response(
+            {'error': 'AI support returned an invalid response.'},
+            status=status.HTTP_502_BAD_GATEWAY
+        )
+
+    reply = result.get('response') if isinstance(result, dict) else None
+    if not isinstance(reply, str) or not reply.strip():
+        logger.error('Ollama response did not include generated text: %r', result)
+        return Response(
+            {
+                'error': (
+                    'Ollama could not generate a reply. Check the model '
+                    'output and available memory.'
+                )
+            },
+            status=status.HTTP_503_SERVICE_UNAVAILABLE
+        )
 
     return Response({
-        'reply': result['response']
+        'reply': reply
     })
 
     

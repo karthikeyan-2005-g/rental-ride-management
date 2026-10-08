@@ -1,9 +1,11 @@
 from datetime import date
+from unittest.mock import Mock, patch
 
 from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+import requests
 
 from .models import Booking, Car
 
@@ -124,3 +126,101 @@ class UpdateBookingTests(APITestCase):
         self.booking.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
         self.assertEqual(self.booking.pickup_location, 'Original Location')
+
+
+class ChatbotTests(APITestCase):
+    url = '/api/chatbot/'
+
+    @patch('rental_backend.api.views.requests.post')
+    def test_chatbot_returns_ollama_reply(self, post):
+        ollama_response = Mock()
+        ollama_response.json.return_value = {'response': 'Hello there'}
+        post.return_value = ollama_response
+
+        response = self.client.post(
+            self.url,
+            {'message': '  Hello  '},
+            format='json'
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, {'reply': 'Hello there'})
+        self.assertEqual(
+            post.call_args.kwargs['json']['prompt'],
+            'Hello'
+        )
+        self.assertEqual(post.call_args.kwargs['timeout'], (3.05, 90))
+
+    @patch('rental_backend.api.views.requests.post')
+    def test_chatbot_reports_ollama_memory_error(self, post):
+        ollama_response = Mock()
+        ollama_response.status_code = 500
+        ollama_response.text = '{"error":"not enough memory"}'
+        ollama_response.raise_for_status.side_effect = requests.HTTPError(
+            'Ollama could not allocate memory',
+            response=ollama_response
+        )
+        post.return_value = ollama_response
+
+        response = self.client.post(
+            self.url,
+            {'message': 'Hello'},
+            format='json'
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_503_SERVICE_UNAVAILABLE
+        )
+        self.assertIn('llama3.2:3b', response.data['error'])
+        self.assertIn('available memory', response.data['error'])
+
+    @patch('rental_backend.api.views.requests.post')
+    def test_chatbot_reports_model_error_response(self, post):
+        ollama_response = Mock()
+        ollama_response.json.return_value = {
+            'error': 'model failed to allocate memory'
+        }
+        post.return_value = ollama_response
+
+        response = self.client.post(
+            self.url,
+            {'message': 'Hello'},
+            format='json'
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_503_SERVICE_UNAVAILABLE
+        )
+        self.assertIn('available memory', response.data['error'])
+
+    @patch('rental_backend.api.views.requests.post')
+    def test_chatbot_reports_connection_error(self, post):
+        post.side_effect = requests.ConnectionError('Ollama is offline')
+
+        with self.assertLogs(
+            'rental_backend.api.views',
+            level='ERROR'
+        ) as logs:
+            response = self.client.post(
+                self.url,
+                {'message': 'Hello'},
+                format='json'
+            )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_503_SERVICE_UNAVAILABLE
+        )
+        self.assertIn('Ollama is running', response.data['error'])
+        self.assertIn('Ollama is offline', logs.output[0])
+
+    def test_chatbot_rejects_empty_message(self):
+        response = self.client.post(
+            self.url,
+            {'message': '   '},
+            format='json'
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

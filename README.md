@@ -40,7 +40,7 @@ The Django API is mounted at `/api/`; the Django project also exposes the Django
   - requests
 - A running MySQL server and a database named `rental_car_db`.
 - Node.js is optional; it can be used to check the frontend JavaScript syntax.
-- The chatbot page additionally expects an Ollama server at `http://localhost:11434` with the `llama3.2:3b` model available.
+- The chatbot page additionally expects an Ollama server at `http://localhost:11434` with the configured model available (defaults to `llama3.2:3b`).
 
 There is currently no dependency lockfile or `requirements.txt` in the project. Install the packages into your chosen virtual environment, for example:
 
@@ -180,6 +180,14 @@ The booking endpoint responds with `201 Created` on success, `400 Bad Request` f
 ```
 
 The endpoint forwards the message to the local Ollama generation API and returns its reply. It requires Ollama and the configured model to be running locally.
+
+The default `llama3.2:3b` model may need more available memory than some computers have. If Ollama reports a memory allocation error, pull the smaller 1B model and configure Django to use it before starting the server:
+
+```powershell
+ollama pull llama3.2:1b
+$env:OLLAMA_MODEL = "llama3.2:1b"
+python manage.py runserver
+```
 
 ## Frontend behavior
 
