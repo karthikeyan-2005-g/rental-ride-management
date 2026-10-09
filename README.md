@@ -1,21 +1,21 @@
 # Rental Car Project
 
-A small rental-car booking application with a static HTML/JavaScript frontend and a Django REST Framework API.
+A rental-car booking application with a React (JSX) and Tailwind frontend and a Django REST Framework API.
 
 ## Project structure
 
 ```text
 .
-├── index.html                 # Landing page
-├── frontend/                  # Static pages and browser-side JavaScript
-│   ├── cars.html
-│   ├── booking.html
-│   ├── login.html
-│   ├── resiter.html           # Registration page (filename as currently named)
-│   ├── my_bookings.html
-│   ├── contact_support.html   # Chatbot interface
-│   ├── auth-nav.js
-│   └── images/
+├── index.html                 # Vite app shell
+├── package.json               # React/Vite scripts and dependencies
+├── vite.config.js
+├── frontend/
+│   ├── images/
+│   └── src/
+│       ├── main.jsx
+│       ├── useLegacyPage.js
+│       ├── pages/              # JSX page components
+│       └── legacy/             # Existing page behavior, retained as JavaScript
 ├── manage.py
 └── rental_backend/
     ├── settings.py
@@ -28,7 +28,7 @@ A small rental-car booking application with a static HTML/JavaScript frontend an
         └── migrations/
 ```
 
-The Django API is mounted at `/api/`; the Django project also exposes the Django admin at `/admin/`. The HTML pages are separate static files and are not served by Django templates.
+The Django API is mounted at `/api/`; the Django project also exposes the Django admin at `/admin/`. Vite serves the React frontend in development and builds it for static hosting; Django does not serve the frontend.
 
 ## Requirements
 
@@ -39,7 +39,7 @@ The Django API is mounted at `/api/`; the Django project also exposes the Django
   - mysqlclient
   - requests
 - A running MySQL server and a database named `rental_car_db`.
-- Node.js is optional; it can be used to check the frontend JavaScript syntax.
+- Node.js and npm for the React/Vite frontend.
 - The chatbot page additionally expects an Ollama server at `http://localhost:11434` with the configured model available (defaults to `llama3.2:3b`).
 
 There is currently no dependency lockfile or `requirements.txt` in the project. Install the packages into your chosen virtual environment, for example:
@@ -76,7 +76,22 @@ python -m pip install Django djangorestframework django-cors-headers mysqlclient
 
    The API is then available at `http://127.0.0.1:8000/api/`.
 
-6. Open `index.html` in a browser, or serve the project directory with a local static-file server and open the page from that server. Frontend scripts currently call the API at `http://127.0.0.1:8000`, so the backend must be running at that address unless those URLs are changed.
+6. In a second terminal, install frontend dependencies and start Vite:
+
+   ```powershell
+   npm install
+   npm run dev
+   ```
+
+   Open the local Vite URL printed in the terminal. Frontend API calls still target `http://127.0.0.1:8000`, so the Django backend must be running at that address unless the API URLs are changed.
+
+7. To create a static frontend build:
+
+   ```powershell
+   npm run build
+   ```
+
+   The generated site is written to `dist/`. The static host must serve `index.html` as a fallback for the existing `.html` page URLs used by navigation and login redirects.
 
 For admin access, create an administrator account and visit `http://127.0.0.1:8000/admin/`:
 
@@ -191,13 +206,11 @@ python manage.py runserver
 
 ## Frontend behavior
 
-- `index.html` links into the car-listing and login pages.
-- `cars.html` loads the car list from the API and links to booking.
-- `booking.html` submits booking details to the API.
-- `login.html` and `resiter.html` use the login and registration endpoints.
-- `my_bookings.html` loads a user's bookings and supports editing confirmed bookings and cancelling them.
-- `contact_support.html` sends messages to the chatbot endpoint.
-- `auth-nav.js` uses browser `localStorage` keys `user_id`, `user_name`, and `user_email` to update the login/logout navigation and gate pages marked as requiring login. This is client-side navigation state, not API authorization.
+- `frontend/src/pages/` contains JSX for the home, cars, booking, login, registration, bookings, and support pages.
+- Existing page behavior and API calls are retained in `frontend/src/legacy/` and run after the corresponding JSX page mounts.
+- `useLegacyPage.js` applies the page title/body settings and runs the existing authentication navigation script.
+- The interface uses Tailwind utility classes, loaded by the frontend shell.
+- Browser login state uses `localStorage` keys `user_id`, `user_name`, and `user_email`. This is client-side navigation state, not API authorization.
 
 ## Checks and tests
 
@@ -214,7 +227,7 @@ python manage.py check
 python manage.py makemigrations --check --dry-run
 ```
 
-The API includes automated tests for booking edits, ownership checks, invalid date ranges, overlap conflicts, and price recalculation.
+The API includes automated tests for booking edits, ownership checks, invalid date ranges, overlap conflicts, price recalculation, and chatbot errors.
 
 ## Development configuration notes
 

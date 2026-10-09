@@ -4,3 +4,5 @@ __pycache__/
 .env
 *.log
 *.sql
+node_modules/
+dist/
